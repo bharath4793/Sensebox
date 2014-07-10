@@ -4,5 +4,8 @@
     <string name="app_name">SenseBox</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_activity">Change Activity</string>
+    <string name="drawer_open">Drawer Opened</string>
+    <string name="drawer_close">Drawer Closed</string>
 
 </resources>

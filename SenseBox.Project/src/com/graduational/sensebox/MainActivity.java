@@ -5,11 +5,15 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.NetworkOnMainThreadException;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +43,10 @@ public class MainActivity extends Activity {
     GraphView graphView;
     GraphViewSeries graphSeries;
     private JSONObject jObject;
+	private DrawerLayout drawerLayout;
+	private ActionBarDrawerToggle drawerToggle;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,7 @@ public class MainActivity extends Activity {
         AsyncTask<String, Void, Void> db = null;
         try {
             db = new db_conn(this);
-            db.execute("http://192.168.1.5/request.php").get();
+            db.execute("http://192.168.1.5/request.php").get(); //jObject gets a value
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -107,7 +115,48 @@ public class MainActivity extends Activity {
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.graph2);
         layout.addView(graphView);
+        
+
+
+
+        mTitle = mDrawerTitle = getTitle();	
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+        	@Override
+        	public void onDrawerClosed(View drawerView) {
+        		// TODO Auto-generated method stub
+        		super.onDrawerClosed(drawerView);
+        		getActionBar().setTitle(mTitle);
+        		invalidateOptionsMenu();
+        	}
+        	
+        	@Override
+        	public void onDrawerOpened(View drawerView) {
+        		// TODO Auto-generated method stub
+        		super.onDrawerOpened(drawerView);
+        		getActionBar().setTitle(mDrawerTitle);
+        		invalidateOptionsMenu();
+        	}
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
     }
+    
+    @Override
+    	protected void onPostCreate(Bundle savedInstanceState) {
+    		// TODO Auto-generated method stub
+    		super.onPostCreate(savedInstanceState);
+    		drawerToggle.syncState();
+    	}
+    
+    @Override
+    	public void onConfigurationChanged(Configuration newConfig) {
+    		// TODO Auto-generated method stub
+    		super.onConfigurationChanged(newConfig);
+    		drawerToggle.onConfigurationChanged(newConfig);
+    	}
 
 
     @Override
@@ -126,8 +175,13 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+    
+
 
 //    public void getGraphActivity(View view) {
 //        Intent intent = new Intent(this, Graphs.class);
