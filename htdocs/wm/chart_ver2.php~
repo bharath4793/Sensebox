@@ -1,0 +1,31 @@
+<?php
+
+
+  $mysqli =mysqli_connect('localhost', 'root', '', 'Arduino');
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: ".mysqli_connect_error();
+}
+
+
+  $sql = mysqli_query($mysqli, 'SELECT * FROM analoog0');
+  
+  if (!$sql) {
+  die("Error running $sql: " . mysql_error());
+  }
+  
+
+  
+  $results = array();
+  while($row = mysqli_fetch_assoc($sql))
+{
+   $results[] = array(
+      'Date' => $row['Date'],
+      'Time' => $row['Time'],
+      'Temperature' => $row['Temperature']
+   );
+}
+$json = json_encode($results, JSON_PRETTY_PRINT);
+//echo pretty_json($json);
+echo $json;
+
+
