@@ -20,8 +20,10 @@ $results = array(
     'rows' => array()
 );
 
+jsonization();
 
-while($row = mysqli_fetch_assoc($sql)) {
+function jsonization($sensor) {
+	while($row = mysqli_fetch_assoc($sql)) {
     // date assumes "yyyy-MM-dd" format
     $dateArr = explode('-', $row['Date']);
     $year = (int) $dateArr[0];
@@ -36,9 +38,13 @@ while($row = mysqli_fetch_assoc($sql)) {
 
     $results['rows'][] = array('c' => array(
         array('Date' => "Date($year, $month, $day, $hour, $minute, $second)"),
-        array('Value' => $row['BMP_temp'])
+        array('Value' => $row[sensor])
     ));
 }
+}
+
+
+
 $json = json_encode($results, JSON_NUMERIC_CHECK);
 echo $json;
 

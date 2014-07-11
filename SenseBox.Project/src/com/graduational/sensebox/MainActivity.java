@@ -17,7 +17,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +50,7 @@ public class MainActivity extends Activity {
 	private ActionBarDrawerToggle drawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private ListView drawerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class MainActivity extends Activity {
         AsyncTask<String, Void, Void> db = null;
         try {
             db = new db_conn(this);
-            db.execute("http://192.168.1.5/request.php").get(); //jObject gets a value
+            db.execute("http://192.168.1.5/dynamicQueryExecutor.php?sensor=BMP_temp").get(); //jObject gets a value
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -118,32 +122,75 @@ public class MainActivity extends Activity {
         
 
 
-
+        String [] dummyArray = {"Last 2 Days", "Last Week", "Last Month", "Last Three Months"};
         mTitle = mDrawerTitle = getTitle();	
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.left_drawer);
+        drawerList.setAdapter(new ArrayAdapter<>(this,  R.layout.drawer_list_item, dummyArray));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        
+        
+        // set a custom shadow that overlays the main content when the drawer opens
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
         	@Override
         	public void onDrawerClosed(View drawerView) {
-        		// TODO Auto-generated method stub
-        		super.onDrawerClosed(drawerView);
         		getActionBar().setTitle(mTitle);
         		invalidateOptionsMenu();
         	}
         	
+            /** Called when a drawer has settled in a completely open state. */
         	@Override
         	public void onDrawerOpened(View drawerView) {
-        		// TODO Auto-generated method stub
-        		super.onDrawerOpened(drawerView);
         		getActionBar().setTitle(mDrawerTitle);
         		invalidateOptionsMenu();
         	}
         };
         drawerLayout.setDrawerListener(drawerToggle);
+        // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
     }
     
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
+    }
+    
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			System.out.println("--> " + id + ", " + position);
+			//selectItem(position);	
+		}
+    }
+
+//    private void selectItem(int position) {
+//        // update the main content by replacing fragments
+//        Fragment fragment = new PlanetFragment();
+//        Bundle args = new Bundle();
+//        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+//        fragment.setArguments(args);
+//
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+//
+//        // update selected item and title, then close the drawer
+//        mDrawerList.setItemChecked(position, true);
+//        setTitle(mPlanetTitles[position]);
+//        mDrawerLayout.closeDrawer(mDrawerList);
+//    }
+    
+
+    /**
+     * When using the ActionBarDrawerToggle, you must call it during
+     * onPostCreate() and onConfigurationChanged()...
+     */
     @Override
     	protected void onPostCreate(Bundle savedInstanceState) {
     		// TODO Auto-generated method stub
@@ -157,6 +204,8 @@ public class MainActivity extends Activity {
     		super.onConfigurationChanged(newConfig);
     		drawerToggle.onConfigurationChanged(newConfig);
     	}
+    
+    /* -------------- */
 
 
     @Override
@@ -175,6 +224,8 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        // The action bar home/up action should open or close the drawer.
+        // ActionBarDrawerToggle will take care of this.
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
