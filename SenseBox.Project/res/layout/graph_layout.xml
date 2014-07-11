@@ -22,13 +22,38 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="250dip"
-            android:id="@+id/graph1" />
+            android:id="@+id/graph0" />
 
         <LinearLayout
+            android:id="@+id/graph1"
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:orientation="vertical" />
+         <LinearLayout
             android:id="@+id/graph2"
             android:layout_width="fill_parent"
             android:layout_height="250dip"
             android:orientation="vertical" />
+        <LinearLayout
+            android:id="@+id/graph3"
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:orientation="vertical" />       
+        <LinearLayout
+            android:id="@+id/graph4"
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:orientation="vertical" />     
+        <LinearLayout
+            android:id="@+id/graph5"
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:orientation="vertical" />  
+        <LinearLayout
+            android:id="@+id/graph6"
+            android:layout_width="fill_parent"
+            android:layout_height="250dip"
+            android:orientation="vertical" />        
 
     </LinearLayout>
     

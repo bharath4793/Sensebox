@@ -2,19 +2,19 @@
 require ("conf.php");
 
 $sensor = $_GET['sensor'];
+$flag = $_GET['flag'];
+$iflag = (int) $flag;
 
 $query = "select Date,Time,$sensor from analoog0";
+$sql_query = resolveFlag($flag, $sensor);
 
-//echo $query;
 
 $sql = mysqli_query($mysqli, $query);
-
-
-  
 if (!$sql) {
   die("Error running $sql: " . mysql_error());
 }
-  
+
+
 
 $json = jsonization($sensor, $sql);
 
@@ -49,6 +49,35 @@ function jsonization($sensor, $sql) {
 	$json = json_encode($results, JSON_NUMERIC_CHECK);
 	return $json;
 }
+
+
+
+function resolveFlag($flag, $sensor) {
+	$specialQuery;
+	switch($flag) {
+		//Last 24 hours.
+		case 0:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+			break;
+		//Last 48 hours.
+		case 1:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 2 DAY)";
+			break;
+		//Last Week.
+		case 2:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+			break;
+		//Last Month.
+		case 3:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+			break;
+		//Else Last 24 hours.
+		default:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+	}
+	return $specialQuery;
+}
+
 
 
 
