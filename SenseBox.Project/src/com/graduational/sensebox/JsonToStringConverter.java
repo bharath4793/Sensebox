@@ -18,7 +18,7 @@ public class JsonToStringConverter {
     	for(int i = 0; i < jsonArray.size(); i++) {
     		jsonStrings[i] = jsonArray.get(i).toString(); 
     	}
-    	System.out.println("[DEBUG 3] " + jsonStrings[2]);
+    	//System.out.println("[DEBUG 3] " + jsonStrings[2]);
     	return jsonStrings;
     }
 

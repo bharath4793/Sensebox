@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.NetworkOnMainThreadException;
+import android.os.Parcelable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -62,6 +63,8 @@ public class MainActivity extends Activity {
     private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
     private LinearLayout[] layouts;
     private GraphDrawer graphDrawer;
+    private JsonToStringConverter converter = new JsonToStringConverter();
+    public Activity act = this;
     
 
     @Override
@@ -69,9 +72,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
         Intent intent = getIntent();
-
+       // PrefetchData pd = (PrefetchData) intent.getParcelableExtra("jsonStrings");
+      //  System.out.println(pd.getJsonStrings()[1]);
         String[] tempArray = intent.getStringArrayExtra("jsonStrings");
-		System.out.println("[DEBUG_6.1] " + tempArray[0]);
+		//System.out.println("[DEBUG_6.1] " + tempArray[0]);
         jsonArray = new JSONObject[GRAPH_NUM];
         for(int i = 0; i < tempArray.length; i++) {
         	try {
@@ -149,7 +153,7 @@ public class MainActivity extends Activity {
     	for (int i = 0; i < GRAPH_NUM; i++) {
     		String idName = "graph" + i;
     		graphSpots[i] = (LinearLayout) findViewById(resources.getIdentifier(idName, "id", getPackageName()));
-    		System.out.println("[DEBUG_2] " + graphSpots[i].getId());
+    		//System.out.println("[DEBUG_2] " + graphSpots[i].getId());
     	}
     	return graphSpots;
     }
@@ -184,24 +188,13 @@ public class MainActivity extends Activity {
 
     private void selectItem(final int position) {	
 
-        new Thread(new Runnable() {
-        	
-        	DatabaseConnector databaseConnector = new DatabaseConnector();;
-            ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
-            GraphDrawer drawer = new GraphDrawer();
-            
+        new Thread(new Runnable() {        
             public void run() {
                 String[] urlArray = makeURL(position, sensorsArray);
-                for (int i = 0; i < GRAPH_NUM; i++) {
-                    selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
-                }
 
-                
-                
-                layouts = graphLayouts();
-                for(int i = 0; i < GRAPH_NUM; i++) {
-                	// makeGraphs(layouts[i], jsonArray[i]);
-                }
+                Intent intent = new Intent(act, TwoDaysActivity.class);
+                intent.putExtra("urls", urlArray);
+                act.startActivity(intent);
             }
         }, "selectItemThread").start();
     	

@@ -18,7 +18,7 @@ public class DatabaseConnector {
         
         public JSONObject getData(String url) {
             GetDataFromDB db = new GetDataFromDB();
-            System.out.println(url);
+           System.out.println(url);
             return db.makeHttpRequest(url, "GET", null);
          //   Graphs graph = new Graphs(resolver, activity);
           //  splashScreen.setJsonStrings(converter(jsonArray));

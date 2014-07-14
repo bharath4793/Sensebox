@@ -55,7 +55,7 @@ public class GraphDrawer {
 
         for (int i = 0; i < data.length; i++) {
             long now = date.get(i).getTime();
-            System.out.println(date.get(i).toString() + " --- " + now);
+            //System.out.println(date.get(i).toString() + " --- " + now);
             data[i] = new GraphView.GraphViewData(now , Double.parseDouble(temperature.get(i)));
            // System.out.println(now + (i * 60 * 60 * 24 * 1000));
         }
