@@ -40,10 +40,10 @@ public class JSON_resolver {
 
             Date dateParser = new SimpleDateFormat("yyyy, MM, dd, HH, mm, ss").parse(dateString);
             date.add(dateParser);
-            // System.out.println(dateParser.toString());
+             System.out.println("[DEBUG 7] " + date.get(i));
         }
-        System.out.println("ArrayList -> " + temperature.get(1));
-        System.out.println("Date AL --> " + date.get(1));
+        System.out.println("ArrayList -> " + temperature.get(0));
+        System.out.println("Date AL --> " + date.get(0));
 //
 //        JSONObject rowsElements = rowsArray.getJSONObject(0);
 //        JSONArray valuesArray = rowsElements.getJSONArray("c");

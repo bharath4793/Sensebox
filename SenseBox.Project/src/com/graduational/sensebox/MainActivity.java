@@ -60,31 +60,53 @@ public class MainActivity extends Activity {
     private String[] sensorsArray = 
     	{"Humidity", "BMP_temp", "BMP_pressure", "Gust", "Direction", "Rain", "Speed"};
     private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
+    private LinearLayout[] layouts;
+    private GraphDrawer graphDrawer;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
-        
-        
+        Intent intent = getIntent();
 
-        new Thread(new Runnable() {
-            public void run() {
+        String[] tempArray = intent.getStringArrayExtra("jsonStrings");
+		System.out.println("[DEBUG_6.1] " + tempArray[0]);
+        jsonArray = new JSONObject[GRAPH_NUM];
+        for(int i = 0; i < tempArray.length; i++) {
+        	try {
+				JSONObject obj = new JSONObject(tempArray[i]);
+				jsonArray[i] = obj;
+				System.out.println("[DEBUG_5] ");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+        }
+//        try {
+//			resolver = new JSON_resolver();
+//		} catch (JSONException | ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+        graphDrawer = new GraphDrawer();
 
-            }
-        }, "httpRequestThread").start();
+//        new Thread(new Runnable() {
+//            public void run() {
+//
+//            }
+//        }, "httpRequestThread").start();
 
         String[] defaultURLArray = makeURL(DEFAULT_FLAG, sensorsArray);
-        for (int i = 0; i < defaultURLArray.length; i++) {
-            makeHttpRequest(defaultURLArray[i], i);
-        }
-
         
         
-        LinearLayout[] layouts = graphLayouts();
+        layouts = graphLayouts();
         for(int i = 0; i < GRAPH_NUM; i++) {
-            makeGraphs(layouts[i], jsonArray[i]);
+        	try {
+				graphDrawer.makeGraphs(layouts[i], "DEMO", this, jsonArray[i], new JSON_resolver());
+			} catch (JSONException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
 
@@ -131,61 +153,7 @@ public class MainActivity extends Activity {
     	}
     	return graphSpots;
     }
-    
-    private void makeGraphs(LinearLayout layout, JSONObject jObject) {
-    	String g1 = "graph1";
-        try {
-            resolver = new JSON_resolver();
-            resolver.setjObject(jObject);
-            resolver.resolve();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-
-        //   textView.setText(data);
-        if (resolver != null) {
-            date = resolver.getDate();
-            temperature = resolver.getTemp();
-        }
-
-        GraphView.GraphViewData[] data = new GraphView.GraphViewData[date.size()];
-        for (int i = 0; i < date.size(); i++) {
-            data[i] = new GraphView.GraphViewData(5.1, Double.parseDouble(temperature.get(i)));
-        }
-
-
-        for (int i = 0; i < data.length; i++) {
-            long now = date.get(i).getTime();
-            System.out.println(now);
-            data[i] = new GraphView.GraphViewData(now , Double.parseDouble(temperature.get(i)));
-           // System.out.println(now + (i * 60 * 60 * 24 * 1000));
-        }
-
-        graphSeries = new GraphViewSeries(data);
-        graphView = new LineGraphView(this, "Demo");
-        ((LineGraphView) graphView).setDrawBackground(true);
-
-        graphView.addSeries(graphSeries);
-
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d k:m:s ");
-        graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX) {
-                if (isValueX) {
-                    Date d = new Date((long) value);
-                    return dateFormat.format(d);
-                }
-                return null; // let graphview generate Y-axis label for us
-            }
-        });
-        
-        //LinearLayout[] layouts = graphLayouts();
-
-        layout.addView(graphView);
-    }
     
     private String[] makeURL(int elementClicked, String[] sensorsArray) {
     	String[] urlArray = new String[GRAPH_NUM];
@@ -196,19 +164,7 @@ public class MainActivity extends Activity {
     	//urlArray holds all the urls for all the sensors.
     	return urlArray;
     }
-    
-    private void makeHttpRequest(String httpRequest, int num) {
-        AsyncTask<String, Void, Void> db = null;
-        System.out.println("[DEBUG_1] " + num);
-        try {
-            db = new db_conn(this, num);
-            db.execute(httpRequest).get(); //jObject gets a value
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+
     
     @Override
     public void setTitle(CharSequence title) {
@@ -226,9 +182,28 @@ public class MainActivity extends Activity {
 		}
     }
 
-    private void selectItem(int position) {
-    	
-    	
+    private void selectItem(final int position) {	
+
+        new Thread(new Runnable() {
+        	
+        	DatabaseConnector databaseConnector = new DatabaseConnector();;
+            ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
+            GraphDrawer drawer = new GraphDrawer();
+            
+            public void run() {
+                String[] urlArray = makeURL(position, sensorsArray);
+                for (int i = 0; i < GRAPH_NUM; i++) {
+                    selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
+                }
+
+                
+                
+                layouts = graphLayouts();
+                for(int i = 0; i < GRAPH_NUM; i++) {
+                	// makeGraphs(layouts[i], jsonArray[i]);
+                }
+            }
+        }, "selectItemThread").start();
     	
 
     }
@@ -287,53 +262,6 @@ public class MainActivity extends Activity {
 //    }
 
 
-    class db_conn extends AsyncTask<String, Void, Void> {
-        Activity activity2;
-        ProgressDialog dialog;
-        List<Message> titles;
-        private Context context;
-        private int num;
-        public db_conn(Activity activity, int i) {
-            this.activity2 = activity;
-            this.num = i;
-            context = activity;
-            dialog = new ProgressDialog(context);
-        }
-
-        /** progress dialog to show user that the backup is processing. */
-
-
-        @Override
-        protected Void doInBackground(String... params) {
-            GetDataFromDB db = new GetDataFromDB();
-            String url = params[0];
-            System.out.println(url);
-            jsonArray[num] = db.makeHttpRequest(url, "GET", null);
-         //   Graphs graph = new Graphs(resolver, activity);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-           // myHandler.sendEmptyMessage(0);
-        }
-
-//        Handler myHandler = new Handler() {
-//
-//            @Override
-//            public void handleMessage(Message msg) {
-//                switch (msg.what) {
-//                    case 0:
-//                        // calling to this function from other pleaces
-//                        // The notice call method of doing things
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        };
-    }
 
     }
 

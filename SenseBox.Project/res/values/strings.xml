@@ -7,5 +7,7 @@
     <string name="action_activity">Change Activity</string>
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
+    <string name="two_days_activity_name">Last 2 Days</string>
+    <string name="splash_screen_name">Sense Box </string>
 
 </resources>

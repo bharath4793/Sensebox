@@ -55,7 +55,7 @@ char tBuf[16];
 
 // set this to the number of milliseconds delay
 // this is 30 seconds
-#define delayMillis 10000UL
+#define delayMillis 150000UL
 
 unsigned long thisMillis = 0;
 unsigned long lastMillis = 0;
