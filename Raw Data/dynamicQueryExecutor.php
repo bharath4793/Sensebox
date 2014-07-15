@@ -9,7 +9,7 @@ $query = "select Date,Time,$sensor from analoog0";
 $sql_query = resolveFlag($flag, $sensor);
 
 
-$sql = mysqli_query($mysqli, $query);
+$sql = mysqli_query($mysqli, $sql_query);
 if (!$sql) {
   die("Error running $sql: " . mysql_error());
 }
@@ -70,6 +70,9 @@ function resolveFlag($flag, $sensor) {
 		//Last Month.
 		case 3:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+			break;
+		case 4:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE Date = CURDATE() ORDER BY Time DESC LIMIT 1";
 			break;
 		//Else Last 24 hours.
 		default:

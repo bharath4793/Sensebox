@@ -1,12 +1,17 @@
 package com.graduational.sensebox;
 
 import android.app.Activity;
+import android.app.ActionBar.LayoutParams;
+import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class NavDrawer implements DefinedValues {
@@ -15,14 +20,29 @@ public class NavDrawer implements DefinedValues {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private ListView drawerList;
+    private ListView drawerList1;
     
 	public NavDrawer(final Activity activity) {
 
 	        mTitle = mDrawerTitle = activity.getTitle();	
 	        drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
 	        drawerList = (ListView) activity.findViewById(R.id.left_drawer);
+	        
+	        TextView textView = new TextView(activity);
+	        textView.setClickable(true);
+	        textView.setFocusable(true);
+	        textView.getLayoutParams();
+			//textView.setWidth(android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+	        textView.setTextColor(Color.RED);
+	        textView.setTextSize(25);
+	        textView.setGravity(Gravity.CENTER);
+	        textView.setText("Graphs");
+	        textView.requestLayout();
+	       // drawerList.addHeaderView(textView);
+
 	        drawerList.setAdapter(new ArrayAdapter<>(activity,  R.layout.drawer_list_item, dummyArray));
 	        drawerList.setOnItemClickListener(new DrawerItemClickListener(activity));
+
 	        
 	        
 	        // set a custom shadow that overlays the main content when the drawer opens

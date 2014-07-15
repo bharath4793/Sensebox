@@ -16,20 +16,29 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener, De
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		System.out.println("--> " + id + ", " + position);
-		selectItem(position, activity);	
+		selectItem(position + 1, activity);	
 	}
 	
     private void selectItem(final int position, final Activity activity) {	
-
-        new Thread(new Runnable() {        
+		System.out.println("--> " +  position);
+        new Thread(new Runnable() { 
+        	String[] urlArray;
+        	Intent intent;
             public void run() {
             	switch (position) {
-            	case 0:
-                    String[] urlArray = makeURL(position, sensorsArray);
+            	case 1:
+                    urlArray = makeURL(position, sensorsArray);
 
-                    Intent intent = new Intent(activity, TwoDaysActivity.class);
+                    intent = new Intent(activity, TwoDaysActivity.class);
                     intent.putExtra("urls", urlArray);
                     activity.startActivity(intent);
+                    break;
+            	case 5: 
+            		String[] urlArray = makeURL(position, sensorsArray);
+            		intent = new Intent(activity, ReportsActivity.class);
+            		intent.putExtra("urls", urlArray);
+            		activity.startActivity(intent);
+            		break;
             	}
 
             }

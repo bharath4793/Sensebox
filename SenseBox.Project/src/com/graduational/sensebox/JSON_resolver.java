@@ -37,8 +37,8 @@ public class JSON_resolver {
             Date dateParser = new SimpleDateFormat("yyyy, MM, dd, HH, mm, ss").parse(dateString);
             date.add(dateParser);
         }
-        System.out.println("ArrayList -> " + temperature.get(0));
-        System.out.println("Date AL --> " + date.get(0));
+//        System.out.println("ArrayList -> " + temperature.get(0));
+//        System.out.println("Date AL --> " + date.get(0));
 
     }
 

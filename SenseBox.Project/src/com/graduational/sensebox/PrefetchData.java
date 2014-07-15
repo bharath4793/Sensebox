@@ -58,7 +58,7 @@ public class PrefetchData extends AsyncTask<Void, Void, Void>  implements Parcel
 	//	System.out.println("[DEBUG_6] " + jsonStrings[4]);
 		//Keep splash screen on for three more seconds.
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(0);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

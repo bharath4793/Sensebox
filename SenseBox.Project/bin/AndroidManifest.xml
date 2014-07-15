@@ -32,6 +32,13 @@
             </intent-filter>
         </activity>
         
+          <activity
+            android:name="com.graduational.sensebox.ReportsActivity"
+            android:label="@string/reports_activity_name" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        
         <activity
             android:name="com.graduational.sensebox.SplashScreen"
             android:label="@string/splash_screen_name" 

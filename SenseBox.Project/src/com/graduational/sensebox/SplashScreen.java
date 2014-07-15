@@ -18,13 +18,9 @@ import android.os.Parcelable;
 
 import com.graduational.sensebox.DatabaseConnector;
 
-public class SplashScreen extends Activity {
-	private static final int GRAPH_NUM = 7;
-	private static final int DEFAULT_FLAG = 4;
+public class SplashScreen extends Activity implements DefinedValues {
 	private String[] defaultURLArray;
 	public ArrayList<JSONObject> jsonArray = new ArrayList<>();
-//	public JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
-	private String[] jsonStrings;
     private String[] sensorsArray = 
     	{"Humidity", "BMP_temp", "BMP_pressure", "Gust", "Direction", "Rain", "Speed"};
     DatabaseConnector databaseConnector;
@@ -52,9 +48,7 @@ public class SplashScreen extends Activity {
     }
 
 
-    public void setJsonStrings(String[] strings) {
-    	jsonStrings = strings;
-    }
+
 
 
 }

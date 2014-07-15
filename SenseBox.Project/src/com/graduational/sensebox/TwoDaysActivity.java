@@ -49,7 +49,7 @@ public class TwoDaysActivity extends Activity {
         
         Intent intent = getIntent();
         urlArray = intent.getStringArrayExtra("urls");
-		System.out.println("[DEBUG_6.1] " + urlArray[0]);
+		//System.out.println("[DEBUG_6.1] " + urlArray[0]);
 		
 		new Thread(new Runnable() {
 			
