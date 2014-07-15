@@ -41,29 +41,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class MainActivity extends Activity {
-	private static final int DEFAULT_FLAG = 4;
-	private static final int GRAPH_NUM = 7;
-   // Activity activity = this;
-    JSON_resolver resolver = null;
-    ArrayList<Date> date;
-    ArrayList<String> temperature;
-    Activity activity;
-    GraphView graphView;
-    GraphViewSeries graphSeries;
- //   private JSONObject jObject;
-	private DrawerLayout drawerLayout;
+public class MainActivity extends Activity implements DefinedValues {
 	private ActionBarDrawerToggle drawerToggle;
-    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private ListView drawerList;
-    private String defaultRequest = "http://192.168.1.5/dynamicQueryExecutor.php?sensor=BMP_temp&flag=4";
-    private String[] sensorsArray = 
-    	{"Humidity", "BMP_temp", "BMP_pressure", "Gust", "Direction", "Rain", "Speed"};
     private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
     private LinearLayout[] layouts;
     private GraphDrawer graphDrawer;
-    private JsonToStringConverter converter = new JsonToStringConverter();
     public Activity act = this;
     
 
@@ -86,23 +69,8 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 			}
         }
-//        try {
-//			resolver = new JSON_resolver();
-//		} catch (JSONException | ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
         graphDrawer = new GraphDrawer();
-
-//        new Thread(new Runnable() {
-//            public void run() {
-//
-//            }
-//        }, "httpRequestThread").start();
-
-        String[] defaultURLArray = makeURL(DEFAULT_FLAG, sensorsArray);
-        
-        
+   
         layouts = graphLayouts();
         for(int i = 0; i < GRAPH_NUM; i++) {
         	try {
@@ -113,38 +81,10 @@ public class MainActivity extends Activity {
 			}
         }
 
+        NavDrawer navigationDrawer = new NavDrawer(this);
+        drawerToggle = navigationDrawer.getDrawerToggle();
 
-
-        String [] dummyArray = {"Last 2 Days", "Last Week", "Last Month", "Last Three Months"};
-        mTitle = mDrawerTitle = getTitle();	
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
-        drawerList.setAdapter(new ArrayAdapter<>(this,  R.layout.drawer_list_item, dummyArray));
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
-        
-        
-        // set a custom shadow that overlays the main content when the drawer opens
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
-        	@Override
-        	public void onDrawerClosed(View drawerView) {
-        		getActionBar().setTitle(mTitle);
-        		invalidateOptionsMenu();
-        	}
-        	
-            /** Called when a drawer has settled in a completely open state. */
-        	@Override
-        	public void onDrawerOpened(View drawerView) {
-        		getActionBar().setTitle(mDrawerTitle);
-        		invalidateOptionsMenu();
-        	}
-        };
-        drawerLayout.setDrawerListener(drawerToggle);
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+   
     }
     
     private LinearLayout[] graphLayouts() {
@@ -157,51 +97,13 @@ public class MainActivity extends Activity {
     	}
     	return graphSpots;
     }
-
-    
-    private String[] makeURL(int elementClicked, String[] sensorsArray) {
-    	String[] urlArray = new String[GRAPH_NUM];
-    	for(int i = 0; i < sensorsArray.length; i++) {
-        	Builder builder = new BuildString();
-    		urlArray[i] = builder.buildString(elementClicked, sensorsArray[i]);
-    	}
-    	//urlArray holds all the urls for all the sensors.
-    	return urlArray;
-    }
-
-    
+   
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
     }
-    
-    /* The click listner for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			System.out.println("--> " + id + ", " + position);
-			selectItem(position);	
-		}
-    }
-
-    private void selectItem(final int position) {	
-
-        new Thread(new Runnable() {        
-            public void run() {
-                String[] urlArray = makeURL(position, sensorsArray);
-
-                Intent intent = new Intent(act, TwoDaysActivity.class);
-                intent.putExtra("urls", urlArray);
-                act.startActivity(intent);
-            }
-        }, "selectItemThread").start();
-    	
-
-    }
-    
-
+  
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...

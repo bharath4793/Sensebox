@@ -17,9 +17,8 @@
         <activity
             android:name="com.graduational.sensebox.MainActivity"
             android:label="@string/app_name" 
-
             android:configChanges="orientation|screenSize"> 
-            					    <!--Now, when your change orientation (and screen size changes), 
+            <!--Now, when your change orientation (and screen size changes), 
             the activity keeps its state and onConfigurationChanged() is called. 
             This will keep whatever is on the screen (ie: webpage in a Webview) when the orientation chagnes.!-->
             <intent-filter>
@@ -35,7 +34,9 @@
         
         <activity
             android:name="com.graduational.sensebox.SplashScreen"
-            android:label="@string/splash_screen_name" >
+            android:label="@string/splash_screen_name" 
+            android:noHistory="true">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

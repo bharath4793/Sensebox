@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-public class JsonToStringConverter {
-	
-	private static final int GRAPH_NUM = 7;
+public class JsonToStringConverter implements DefinedValues {
+
 	private String[] jsonStrings;
 
 	public JsonToStringConverter() {
