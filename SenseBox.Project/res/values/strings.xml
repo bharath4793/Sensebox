@@ -12,5 +12,6 @@
         <string name="reports_activity_name">Current Weather Conditions</string>
     <string name="splash_screen_name">Sense Box </string>
     <string name="title1">Graphs </string>
+        <string name="default_action_bar_text">24 Hours Graphs </string>
 
 </resources>

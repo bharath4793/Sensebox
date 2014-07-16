@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements DefinedValues {
         layouts = graphLayouts();
         for(int i = 0; i < GRAPH_NUM; i++) {
         	try {
-				graphDrawer.makeGraphs(layouts[i], "DEMO", this, jsonArray[i], new JSON_resolver());
+				graphDrawer.makeGraphs(layouts[i], graphLabels[i], this, jsonArray[i], new JSON_resolver());
 			} catch (JSONException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,6 +86,7 @@ public class MainActivity extends Activity implements DefinedValues {
 
    
     }
+
     
     private LinearLayout[] graphLayouts() {
     	LinearLayout[] graphSpots = new LinearLayout[GRAPH_NUM];
@@ -137,17 +138,25 @@ public class MainActivity extends Activity implements DefinedValues {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    	
         // The action bar home/up action should open or close the drawer.
         // ActionBarDrawerToggle will take care of this.
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
+        } else if (item.getItemId() == R.id.refresh) {
+            restartApp();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+	private void restartApp() {
+		finish();
+		Intent intent = new Intent(this, SplashScreen.class);
+		startActivity(intent);
+		
+	}
     
 
 

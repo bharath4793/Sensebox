@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!-- The main content view -->
+    
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/black" >
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,6 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" 
         android:textSize="25sp"
         android:gravity="center|top"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -25,7 +43,8 @@
         android:layout_below="@+id/textView2"
         android:layout_marginTop="36dp"
         android:text="Pressure: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textView4"
@@ -35,7 +54,8 @@
         android:layout_below="@+id/textView3"
         android:layout_marginTop="36dp"
         android:text="Gust: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textView5"
@@ -45,7 +65,8 @@
         android:layout_below="@+id/textView4"
         android:layout_marginTop="36dp"
         android:text="Direction: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textView6"
@@ -55,7 +76,8 @@
         android:layout_below="@+id/textView5"
         android:layout_marginTop="36dp"
         android:text="Rain: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textView7"
@@ -65,7 +87,8 @@
         android:layout_below="@+id/textView6"
         android:layout_marginTop="36dp"
         android:text="Speed: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textView1"
@@ -75,7 +98,8 @@
         android:layout_below="@+id/textView8"
         android:layout_marginTop="20dp"
         android:text="Humidity: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+                android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -85,6 +109,31 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="36dp"
         android:text="Temperature: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
 
 </RelativeLayout>
+
+
+
+
+</ScrollView>
+
+    <!-- The navigation drawer -->
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#111"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" >
+     </ListView>
+     
+
+
+
+
+</android.support.v4.widget.DrawerLayout>

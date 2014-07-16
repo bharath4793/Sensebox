@@ -9,16 +9,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.graphics.Canvas;
 import android.widget.LinearLayout;
 
 import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 
 public class GraphDrawer {
 	
-    GraphView graphView;
+    private LineGraphView graphView;
     GraphViewSeries graphSeries;
     JSON_resolver resolver = null;
     ArrayList<Date> date;
@@ -48,9 +51,9 @@ public class GraphDrawer {
         }
 
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[date.size()];
-        for (int i = 0; i < date.size(); i++) {
-            data[i] = new GraphView.GraphViewData(5.1, Double.parseDouble(temperature.get(i)));
-        }
+//        for (int i = 0; i < date.size(); i++) {
+//            data[i] = new GraphView.GraphViewData(5.1, Double.parseDouble(temperature.get(i)));
+//        }
 
 
         for (int i = 0; i < data.length; i++) {
@@ -61,10 +64,11 @@ public class GraphDrawer {
         }
 
         graphSeries = new GraphViewSeries(data);
-        graphView = new LineGraphView(activity, "Demo");
+        graphView = new LineGraphView(activity, title);
         ((LineGraphView) graphView).setDrawBackground(true);
-
+        
         graphView.addSeries(graphSeries);
+        
 
         final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d k:m:s ");
         graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
@@ -77,10 +81,12 @@ public class GraphDrawer {
                 return null; // let graphview generate Y-axis label for us
             }
         });
+
         
         //LinearLayout[] layouts = graphLayouts();
 
         layout.addView(graphView);
     }
+
 
 }

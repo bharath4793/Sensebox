@@ -57,7 +57,7 @@ function resolveFlag($flag, $sensor) {
 	switch($flag) {
 		//Last 24 hours.
 		case 0:
-			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 24 HOUR)";
 			break;
 		//Last 48 hours.
 		case 1:
