@@ -8,6 +8,9 @@ import java.util.concurrent.CountDownLatch;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.graduational.sensebox.DatabaseClasses.DatabaseConnector;
+import com.graduational.sensebox.navigationDrawer.NavDrawer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;

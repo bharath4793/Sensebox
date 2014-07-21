@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import com.graduational.sensebox.DatabaseClasses.DatabaseConnector;
+import com.graduational.sensebox.GraphingClasses.MainActivity;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;

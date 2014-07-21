@@ -6,6 +6,6 @@ public interface DefinedValues {
  	 static final int DEFAULT_FLAG = 0;
  	 static final int GRAPH_NUM = 7;
      static final String [] dummyArray = {"Last 2 Days Graph", "Last Week Graph", "Last Month Graph", "Last Three Months Graph",
-    	 								  "Current Conditions Report", "Last 24 Hours Report", "Last 2 Days Report", "Last Week Report", "Last Three Monrths Report"};
+    	 								  "Current Conditions Report", "Last 24 Hours Highs/Lows", "Last 2 Days Highs/Lows", "Last Week Highs/Lows", "Last Three Months Highs/Lows"};
      static final String[] graphLabels = {"Humidity", "Temperature", "Pressure", "Gust", "Direction", "Rain", "Speed"};
 }

@@ -273,10 +273,11 @@ public final class R {
         public static final int drawer=0x7f030003;
         public static final int drawer_list_item=0x7f030004;
         public static final int fragment_main=0x7f030005;
-        public static final int graph_layout=0x7f030006;
-        public static final int graphs=0x7f030007;
-        public static final int report_activity=0x7f030008;
-        public static final int two_days_activity=0x7f030009;
+        public static final int graph_activity=0x7f030006;
+        public static final int graph_layout=0x7f030007;
+        public static final int graphs=0x7f030008;
+        public static final int min_max_activity=0x7f030009;
+        public static final int report_activity=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -286,10 +287,14 @@ public final class R {
         public static final int action_refresh=0x7f060003;
         public static final int action_settings=0x7f060002;
         public static final int app_name=0x7f060000;
+        public static final int daily_report_activity_name=0x7f06000f;
         public static final int default_action_bar_text=0x7f06000b;
         public static final int drawer_close=0x7f060006;
         public static final int drawer_open=0x7f060005;
         public static final int hello_world=0x7f060001;
+        public static final int last_month_graph_activity_name=0x7f06000d;
+        public static final int last_three_months_graph_activity_name=0x7f06000e;
+        public static final int one_week_graph_activity_name=0x7f06000c;
         public static final int reports_activity_name=0x7f060008;
         public static final int splash_screen_name=0x7f060009;
         public static final int title1=0x7f06000a;

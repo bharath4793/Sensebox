@@ -16,7 +16,7 @@ import android.os.Message;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.graduational.sensebox.DatabaseConnector;
+import com.graduational.sensebox.DatabaseClasses.DatabaseConnector;
 
 public class SplashScreen extends Activity implements DefinedValues {
 	private String[] defaultURLArray;

@@ -3,10 +3,11 @@ require ("conf.php");
 
 $sensor = $_GET['sensor'];
 $flag = $_GET['flag'];
+$separator = $_GET['separator']; //ASC for min or DESC for max at sensor's order by
 $iflag = (int) $flag;
 
 $query = "select Date,Time,$sensor from analoog0";
-$sql_query = resolveFlag($flag, $sensor);
+$sql_query = resolveFlag($flag, $sensor, $separator);
 
 
 $sql = mysqli_query($mysqli, $sql_query);
@@ -52,7 +53,7 @@ function jsonization($sensor, $sql) {
 
 
 
-function resolveFlag($flag, $sensor) {
+function resolveFlag($flag, $sensor, $separator) {
 	$specialQuery;
 	switch($flag) {
 		//Last 24 hours.
@@ -72,7 +73,13 @@ function resolveFlag($flag, $sensor) {
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
 			break;
 		case 4:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 3 MONTH)";
+			break;
+		case 5:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE Date = CURDATE() ORDER BY Time DESC LIMIT 1";
+			break;
+		case 6:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 24 HOUR) ORDER BY $sensor $separator, Time DESC limit 1";		
 			break;
 		//Else Last 24 hours.
 		default:
