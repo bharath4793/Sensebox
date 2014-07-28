@@ -39,13 +39,10 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 	
 	    @Override
 	    protected void onPreExecute() {
-
-
-	        mProgressDialog.setMessage("Please wait....");
+	        mProgressDialog.setMessage("Fetching Weather Data from Database...");
 	        mProgressDialog.setIndeterminate(true);
 	        mProgressDialog.setCancelable(false);
 	        mProgressDialog.show();
-
 	    }
 
 	@Override
@@ -95,7 +92,6 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
     	for (int i = 0; i < GRAPH_NUM; i++) {
     		String idName = "graph" + i;
     		graphSpots[i] = (LinearLayout) activity.findViewById(resources.getIdentifier(idName, "id", activity.getPackageName()));
-    		//System.out.println("[DEBUG_2] " + graphSpots[i].getId());
     	}
     	return graphSpots;
     }

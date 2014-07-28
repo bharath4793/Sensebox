@@ -55,14 +55,14 @@
         </activity>
         
           <activity
-            android:name="com.graduational.sensebox.ReportsActivity"
+            android:name="com.graduational.sensebox.CurrentConditionsActivity"
             android:label="@string/reports_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
             </intent-filter>
         </activity>
          <activity
-            android:name="com.graduational.sensebox.DailyReport"
+            android:name="com.graduational.sensebox.ReportsAtivity"
             android:label="@string/daily_report_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>

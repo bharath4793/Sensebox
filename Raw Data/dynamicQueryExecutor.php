@@ -81,6 +81,18 @@ function resolveFlag($flag, $sensor, $separator) {
 		case 6:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 24 HOUR) ORDER BY $sensor $separator, Time DESC limit 1";		
 			break;
+		case 7:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 2 DAY) ORDER BY $sensor $separator, Time DESC limit 1";		
+			break;
+		case 8:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ORDER BY $sensor $separator, Time DESC limit 1";		
+			break;
+		case 9:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ORDER BY $sensor $separator, Time DESC limit 1";		
+			break;
+		case 10:
+			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ORDER BY $sensor $separator, Time DESC limit 1";		
+			break;
 		//Else Last 24 hours.
 		default:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";

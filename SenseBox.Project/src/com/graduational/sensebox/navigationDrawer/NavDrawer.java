@@ -84,5 +84,9 @@ public class NavDrawer implements DefinedValues{
 	public void setDrawerToggle(ActionBarDrawerToggle drawerToggle) {
 		this.drawerToggle = drawerToggle;
 	}
+	
+	public ListView getDrawerList() {
+		return drawerList;
+	}
 
 }

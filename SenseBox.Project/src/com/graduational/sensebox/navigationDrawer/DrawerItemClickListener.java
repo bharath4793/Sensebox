@@ -2,9 +2,9 @@ package com.graduational.sensebox.navigationDrawer;
 
 import com.graduational.sensebox.BuildString;
 import com.graduational.sensebox.Builder;
-import com.graduational.sensebox.DailyReport;
+import com.graduational.sensebox.ReportsAtivity;
 import com.graduational.sensebox.DefinedValues;
-import com.graduational.sensebox.ReportsActivity;
+import com.graduational.sensebox.CurrentConditionsActivity;
 import com.graduational.sensebox.SplashScreen;
 import com.graduational.sensebox.GraphingClasses.GraphActivity;
 
@@ -16,110 +16,161 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 /* The click listner for ListView in the navigation drawer */
-public class DrawerItemClickListener implements ListView.OnItemClickListener, DefinedValues {
+public class DrawerItemClickListener implements ListView.OnItemClickListener,
+		DefinedValues {
 	private Activity activity;
+
 	public DrawerItemClickListener(Activity activity) {
 
 		this.activity = activity;
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		System.out.println("--> " + id + ", " + position);
-		selectItem(position + 1, activity);	
+		selectItem(position, activity);
 	}
-	
-    private void selectItem(final int position, final Activity activity) {	
-		System.out.println("--> " +  position + ", " + activity.getTitle());
-        new Thread(new Runnable() { 
-        	String[] urlArray;
-        	Intent intent;
-            public void run() {
-            	switch (position) {
-            	case 0:
-                    intent = new Intent(activity, SplashScreen.class);
-                    activity.startActivity(intent);
-                    break;
-            	case 1:
-                    urlArray = makeURL(position, sensorsArray);
-                    System.out.println("CLICKED--> " + position);
-                    intent = new Intent(activity, GraphActivity.class);
-                    intent.putExtra("urls", urlArray);
-                    intent.putExtra("title", "Two Days Graphs");
-                    activity.startActivity(intent);
-                    break;
-            	case 2:
-                    urlArray = makeURL(position, sensorsArray);
-                    System.out.println("CLICKED--> " + position);
-                    intent = new Intent(activity, GraphActivity.class);
-                    intent.putExtra("urls", urlArray);
-                    intent.putExtra("title", "Weekly Graphs");
-                    activity.startActivity(intent);
-                    break;
-            	case 3:
-                    urlArray = makeURL(position, sensorsArray);
-                    System.out.println("CLICKED--> " + position);
-                    intent = new Intent(activity, GraphActivity.class);
-                    intent.putExtra("urls", urlArray);
-                    intent.putExtra("title", "Monthly Graphs");
-                    activity.startActivity(intent);
-                    break;
-            	case 4:
-                    urlArray = makeURL(position, sensorsArray);
-                    System.out.println("CLICKED--> " + position);
-                    intent = new Intent(activity, GraphActivity.class);
-                    intent.putExtra("urls", urlArray);
-                    intent.putExtra("title", "Three Months Graphs");
-                    activity.startActivity(intent);
-                    break;
-            	case 5: 
-            		urlArray = makeURL(position, sensorsArray);
-                    intent = new Intent(activity, ReportsActivity.class);
-                    System.out.println("CLICKED--> " + position);
-                    intent.putExtra("urls", urlArray);
-            		activity.startActivity(intent);
-            		break;
-            	case 6: 
-            		String[] minUrlArray = makeURL(99, sensorsArray);
-            		String[] maxUrlArray = makeURL(98, sensorsArray);
-                    System.out.println("CLICKED--> " + position);
-            		intent = new Intent(activity, DailyReport.class);
-            		intent.putExtra("minUrlArray", minUrlArray);
-            		intent.putExtra("maxUrlArray", maxUrlArray);
-            		activity.startActivity(intent);
-            		break;
 
-            		
+	private void selectItem(final int position, final Activity activity) {
+		System.out.println("--> " + position + ", " + activity.getTitle());
+		new Thread(new Runnable() {
+			String[] urlArray;
+			String[] minUrlArray;
+			String[] maxUrlArray;
+			Intent intent;
 
+			public void run() {
+				switch (position) {
+				case 0:
+					urlArray = makeURL(position, sensorsArray, null);
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, GraphActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "24 Hours Graphs");
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 1:
+					urlArray = makeURL(position, sensorsArray, null);
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, GraphActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "Two Days Graphs");
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 2:
+					urlArray = makeURL(position, sensorsArray, null);
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, GraphActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "Weekly Graphs");
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 3:
+					urlArray = makeURL(position, sensorsArray, null);
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, GraphActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "Monthly Graphs");
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 4:
+					urlArray = makeURL(position, sensorsArray, null);
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, GraphActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "Three Months Graphs");
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 5:
+					urlArray = makeURL(position, sensorsArray, null);
+					intent = new Intent(activity, CurrentConditionsActivity.class);
+					System.out.println("CLICKED--> " + position);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 6:
+					minUrlArray = makeURL(position, sensorsArray, "ASC");
+					maxUrlArray = makeURL(position, sensorsArray, "DESC");
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, ReportsAtivity.class);
+					intent.putExtra("minUrlArray", minUrlArray);
+					intent.putExtra("maxUrlArray", maxUrlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 7:
+					minUrlArray = makeURL(position, sensorsArray, "ASC");
+					maxUrlArray = makeURL(position, sensorsArray, "DESC");
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, ReportsAtivity.class);
+					intent.putExtra("minUrlArray", minUrlArray);
+					intent.putExtra("maxUrlArray", maxUrlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 8:
+					minUrlArray = makeURL(position, sensorsArray, "ASC");
+					maxUrlArray = makeURL(position, sensorsArray, "DESC");
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, ReportsAtivity.class);
+					intent.putExtra("minUrlArray", minUrlArray);
+					intent.putExtra("maxUrlArray", maxUrlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 9:
+					minUrlArray = makeURL(position, sensorsArray, "ASC");
+					maxUrlArray = makeURL(position, sensorsArray, "DESC");
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, ReportsAtivity.class);
+					intent.putExtra("minUrlArray", minUrlArray);
+					intent.putExtra("maxUrlArray", maxUrlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				case 10:
+					minUrlArray = makeURL(position, sensorsArray, "ASC");
+					maxUrlArray = makeURL(position, sensorsArray, "DESC");
+					System.out.println("CLICKED--> " + position);
+					intent = new Intent(activity, ReportsAtivity.class);
+					intent.putExtra("minUrlArray", minUrlArray);
+					intent.putExtra("maxUrlArray", maxUrlArray);
+					intent.putExtra("position", position);
+					activity.startActivity(intent);
+					break;
+				}
 
-            	}
+			}
+		}, "selectItemThread").start();
 
-            }
-        }, "selectItemThread").start();
-    	
+	}
 
-    }
-//	private void restartApp() {
-//		System.out.println(mainActivity.getTitle());
-//		mainActivity.finish();
-//		activity.finish();
-//		Intent intent = new Intent(mainActivity, SplashScreen.class);
-//		mainActivity.startActivity(intent);
-//		
-//	}
+	// private void restartApp() {
+	// System.out.println(mainActivity.getTitle());
+	// mainActivity.finish();
+	// activity.finish();
+	// Intent intent = new Intent(mainActivity, SplashScreen.class);
+	// mainActivity.startActivity(intent);
+	//
+	// }
 
-    
-    
-    private String[] makeURL(int elementClicked, String[] sensorsArray) {
-    	String[] urlArray = new String[GRAPH_NUM];
-    	for(int i = 0; i < sensorsArray.length; i++) {
-        	Builder builder = new BuildString();
-        	
-    		urlArray[i] = builder.buildString(elementClicked, sensorsArray[i]);
-    	}
-    	//urlArray holds all the urls for all the sensors.
-    	return urlArray;
-    }
+	private String[] makeURL(int elementClicked, String[] sensorsArray, String separator) {
+		String[] urlArray = new String[GRAPH_NUM];
+		for (int i = 0; i < sensorsArray.length; i++) {
+			Builder builder = new BuildString();
 
+			urlArray[i] = builder.buildString(elementClicked, sensorsArray[i],
+					separator);
+		}
+		// urlArray holds all the urls for all the sensors.
+		return urlArray;
+	}
 
 }

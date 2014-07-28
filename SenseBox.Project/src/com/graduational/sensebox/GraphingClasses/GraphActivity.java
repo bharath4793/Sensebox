@@ -41,6 +41,7 @@ public class GraphActivity extends Activity implements DefinedValues{
     final CountDownLatch latch = new CountDownLatch(1); //wait for thread to complete 
     private NavDrawer navigationDrawer;
     Activity activity = this;
+    private int position;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class GraphActivity extends Activity implements DefinedValues{
         
         Intent intent = getIntent();
         urlArray = intent.getStringArrayExtra("urls");
+		position = intent.getIntExtra("position", position);
         setTitle(intent.getStringExtra("title"));
 		//System.out.println("[DEBUG_6.1] " + urlArray[0]);
         navigationDrawer = new NavDrawer(this);
@@ -111,10 +113,8 @@ public class GraphActivity extends Activity implements DefinedValues{
 
 
 		private void restartApp() {
-			finish();
-			Intent intent = new Intent(this, SplashScreen.class);
-			startActivity(intent);
-			
+			ListView lv = navigationDrawer.getDrawerList();
+			lv.performItemClick(lv.getAdapter().getView(position, null, null), position, lv.getAdapter().getItemId(position));		
 		}
     
 

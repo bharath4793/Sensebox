@@ -3,6 +3,8 @@ package com.graduational.sensebox.GraphingClasses;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -10,6 +12,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.widget.LinearLayout;
 
 import com.graduational.sensebox.JSON_resolver;
@@ -18,6 +22,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
+import com.jjoe64.graphview.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
 
 public class GraphDrawer {
@@ -55,7 +60,7 @@ public class GraphDrawer {
 //        for (int i = 0; i < date.size(); i++) {
 //            data[i] = new GraphView.GraphViewData(5.1, Double.parseDouble(temperature.get(i)));
 //        }
-
+        double max = 0, min = 0;
         long last_now = 0;
         for (int i = 0; i < data.length; i++) {
             long now = date.get(i).getTime();
@@ -63,19 +68,33 @@ public class GraphDrawer {
             	System.out.println("ERROR AT TIME ORDERING DETECTED --> " + date.get(i).toString());
             	break;
             }
+            max = Double.parseDouble(temperature.get(i));
+            if (Double.parseDouble(temperature.get(i)) > max) {
+                max = Double.parseDouble(temperature.get(i));
+            }
+            if (Double.parseDouble(temperature.get(i)) < min) {
+            	min = Double.parseDouble(temperature.get(i));
+            }
             //System.out.println(date.get(i).toString() + " --- " + now);
             data[i] = new GraphView.GraphViewData(now , Double.parseDouble(temperature.get(i)));
            // System.out.println(now + (i * 60 * 60 * 24 * 1000));
             last_now = now;
         }
 
-        graphSeries = new GraphViewSeries(data);
+        graphSeries = new GraphViewSeries("", new GraphViewSeriesStyle(Color.RED, 4), data);
         graphView = new LineGraphView(activity, title);
         ((LineGraphView) graphView).setDrawBackground(true);
         
         graphView.addSeries(graphSeries);
+        System.out.println("Max is: " + max + ", " + "Min is: " + min);
+   //     graphView.setManualYAxisBounds(max + 5, min - 5);
+        graphView.setDataPointsRadius(2);
+        graphView.setDrawBackground(false);
+        graphView.setScalable(true);
+        graphView.getGraphViewStyle().setGridColor(Color.BLUE);
+			
         
-
+        
         final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d k:m:s ");
         graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
             @Override

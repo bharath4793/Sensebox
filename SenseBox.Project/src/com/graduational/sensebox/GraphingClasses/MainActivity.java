@@ -1,53 +1,25 @@
 package com.graduational.sensebox.GraphingClasses;
 
-import android.app.Activity;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.NetworkOnMainThreadException;
-import android.os.Parcelable;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.text.ParseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.JSON_resolver;
 import com.graduational.sensebox.R;
 import com.graduational.sensebox.SplashScreen;
-import com.graduational.sensebox.R.id;
-import com.graduational.sensebox.R.layout;
-import com.graduational.sensebox.R.menu;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
-import com.jjoe64.graphview.*;
-
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 
 public class MainActivity extends Activity implements DefinedValues {

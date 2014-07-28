@@ -3,9 +3,9 @@
 #include <dht11.h>
 #include <Wire.h>
 #include <ArduinoNunchuk.h>
+#include <Servo.h>
 
-
-//ArduinoNunchuk nunchuk = ArduinoNunchuk();
+ArduinoNunchuk nunchuk = ArduinoNunchuk();
 
 
 int pos = 0;    // variable to store the servo position 
@@ -24,7 +24,13 @@ int pos = 0;    // variable to store the servo position
 #define uint  unsigned int
 #define ulong unsigned long
 
+#define SERVO_1_INT 2
+#define SERVO_2_INT 3
+#define SERVO_1_PIN 21
+#define SERVO_2_PIN 20
 
+Servo myservo;  // create servo object to control a servo 
+Servo myservo2;
 
 // this must be unique
 byte mac[] = {  
@@ -124,7 +130,14 @@ void setup() {
   //Most Arduino boards have two external interrupts: numbers 0 (on digital pin 2) and 1 (on digital pin 3). 
   attachInterrupt(RAIN_GAUGE_INT,rainGageClick,FALLING);
   attachInterrupt(ANEMOMETER_INT,anemometerClick,FALLING);
+  attachInterrupt(SERVO_1_INT,analogYchange,CHANGE);
+  attachInterrupt(SERVO_2_INT,analogXchange,CHANGE);
   interrupts();
+    nunchuk.init();
+    myservo.attach(2);  // attaches the servo on pin 2 to the servo object 
+     myservo2.attach(3);  
+     
+     
   nextCalcRain = millis() + MSECS_CALC_RAIN_FALL;
   nextCalcSpeed = millis() + MSECS_CALC_WIND_SPEED;
   nextCalcDir   = millis() + MSECS_CALC_WIND_DIR;
@@ -657,8 +670,7 @@ double getGust()
   lastMillis_2 = thisMillis_2;
   return result;
 }
-void anemometerClick()
-{
+void anemometerClick() {
   long thisTime=micros()-anem_last;
   anem_last=micros();
   //Deboucning interrupts that occurs within 500μs or 0.0005s since the last interrupt
@@ -683,8 +695,7 @@ void anemometerClick()
 volatile unsigned long rain_count=0;
 volatile unsigned long rain_last=0;
 
-double getUnitRain()
-{
+double getUnitRain() {
 
   unsigned long reading=rain_count;
   rain_count=0;
@@ -692,8 +703,7 @@ double getUnitRain()
   return unit_rain;
 }
 
-void rainGageClick()
-{
+void rainGageClick() {
   long thisTime=micros()-rain_last;
   rain_last=micros();
   if(thisTime>500)
@@ -731,6 +741,22 @@ double dewPointFast(double celsius, double humidity)
   double temp = (a * celsius) / (b + celsius) + log(humidity*0.01);
   double Td = (b * temp) / (a - temp);
   return Td;
+}
+
+
+void analogXchange() {
+  nunchuk.update();
+  int analogX = nunchuk.analogX;
+  analogX = map(analogX, 0, 255, 0, 179);
+  myservo2.write(analogX);
+  delay(30);
+
+void analogYchange() {
+  nunchuk.update();
+  int analogY = nunchuk.analogY;
+  analogY = map(analogY, 0, 255, 0, 179);
+  myservo.write(analogY);
+  delay(30);
 }
 
 
