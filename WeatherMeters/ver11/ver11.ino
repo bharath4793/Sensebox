@@ -706,28 +706,20 @@ unsigned long lastMillis_2 = 0;
 
 double getGust(unsigned long factor)
 {
-  unsigned long reading = anem_count_3;
-  anem_count_3 = 0;
+  unsigned long reading = anem_count;
+  anem_count = 0;
   double result = (WIND_FACTOR * reading) / (factor / 1000);
   return result;
 }
-void anemometerClick()
-{
+void anemometerClick() {
   long thisTime = micros() - anem_last;
   anem_last = micros();
   //Deboucning interrupts that occurs within 500μs or 0.0005s since the last interrupt
-  if (thisTime > 500)
-  {
+  if (thisTime > 500) {
     anem_count++;
-    anem_count_2++;
-    anem_count_3++;
-    //Serial.println("Click");
-    //Serial.println("");
-    if (thisTime < anem_min)
-    {
+    if (thisTime < anem_min) {
       anem_min = thisTime;
     }
-
   }
 }
 
