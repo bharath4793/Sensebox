@@ -1,0 +1,585 @@
+<html>
+  <head>
+	  <meta http-equiv="refresh" content="120" >
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+	
+    
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawVisualization);
+      
+  function drawTemperature() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_temperature.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Temperature',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+    }
+};
+			
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_temperature'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawHumidity() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_humidity.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Humidity',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_humidity'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawPressure() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_pressure.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Pressure',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_pressure'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawGust() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_gust.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Gust',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_gust'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawDirection() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_direction.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Direction',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_direction'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawWind() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_wind.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Wind Speed',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_wind'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawRain() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_rain.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Rain',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_rain'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+
+
+
+ function drawVisualization() {
+               drawTemperature();
+               drawHumidity();
+			   drawPressure();
+			   drawWind();
+			   drawDirection();
+			   drawGust();
+			   drawRain();
+
+            }
+
+    </script>
+	
+  </head>
+
+  <body>
+		<div id="chart_temperature"></div>
+		<p></p>
+		<div id="chart_humidity"></div>
+		<p></p>
+		<div id="chart_pressure"></div>
+		<p></p>
+		<div id="chart_wind"></div>
+		<p></p>
+		<div id="chart_direction"></div>
+		<p></p>
+		<div id="chart_gust"></div>
+		<p></p>
+		<div id="chart_rain"></div>
+		<p></p>
+		
+		<div>
+<table border="2" bordercolordark="#000000" bordercolorlight="#000000"  cellpadding=0 cellspacing="0" width="1059" bgcolor="#FFFFFF" height="1207">
+                    <tr>
+                        <td align=center bordercolor="#000000"
+                            style="border: thin solid #C0C0C0; " bgcolor="#DEDBDE" height="142" width="149">
+
+                            <a href="http://www.nhmc.uoc.gr/">
+
+                                <img alt="" src="logomgik.gif" width="107" height="127" class="style7"></a></td>
+                        <td align=center bordercolor="#000000"
+                            style="border: thin solid #C0C0C0; " bgcolor="#DEDBDE" height="142" width="155">
+
+                            <a href="http://www.meteo.gr">
+
+                                <img border="0" src="noa_logo.GIF" width="134" height="123"></a></td>
+                        <td bgcolor="#E5F3F3" style="line-height: 100%; word-spacing:0; margin-left:0; margin-top:0; margin-bottom:0" valign="bottom" rowspan="3" width="741" bordercolor="#808080" height="226">
+                            <center>
+                                <p style="margin-top: 4px">
+                                    <font face="Verdana">
+                                        <span lang="el">Ìåôåùñïëïãéêüò óôáèìüò</span> <span lang="el">áêôÞò Çñáêëåßïõ</span><b><span lang="el"> ÊñÞôçò.</span>
+                                            <span lang="el">Õøüìåôñï: </span></b>1<span lang="el">0ì.</span></font></p>
+                                <p style="margin-top: 0; margin-bottom:0"><font face="Verdana" size="2">
+                                        <span lang="el">Éäéïêôçóßá<b> </b></span>
+                                        <b><a href="http://www.meteo.gr">Åèíéêü Áóôåñïóêïðåßï Áèçíþí</a></b></font>
+                                    <span lang="el" class="style4">- <span class="style6"><strong>Öéëïîåíßá</strong>: 
+                                            <a href="http://www.nhmc.uoc.gr/">Ìïõóåßï ÖõóéêÞò Éóôïñßáò ÊñÞôçò</a></span></span></p>
+                                <p style="margin-top: 0; margin-bottom:0; width: 741px; height: 19px;">
+                                    <font face="Verdana" size="2"><span lang="el"> Åðßâëåøç:
+                                            <a href="mailto:s_leandros@yahoo.gr">ËÝáíäñïò Óõìåùíßäçò</a></span></font></p>
+                                <p style="margin-top: 0; margin-bottom:0">&nbsp;</p>
+                                <p style="margin-top: 0; margin-bottom:0">
+                                    <applet
+                                        CODE="davisticker.class"
+                                        width=720 VIEWASTEXT style="height: 36px">
+                                        <param name=string  value="Forecast:  Mostly cloudy and cooler.  Precipitation possible within 12 hours, possibly heavy at times.  Windy.   This Month's Highs & Lows:     High Temperature 32.6°C     
+                                               Low Temperature 21.2°C     
+                                               High Humidity 92%      Low Humidity 26%      
+                                               High Dewpoint 23.9°C     Low Dewpoint 9.4°C     
+                                               High Wind Speed 67.6 km/h     High Barometer 1016.7 hPa     
+                                               Low Barometer 1003.6 hPa     
+                                               Low Wind Chill 19.4°C     
+                                               High Heat Index 33.3°C     High Rain Rate 0.0 mm/hr      
+                                               This Year's Highs & Lows:     High Temperature 34.2°C     Low Temperature 8.8°C     
+                                               High Humidity 94%     Low Humidity 18%      
+                                               High Dewpoint 23.9°C     Low Dewpoint 1.7°C     
+                                               High Wind Speed 75.6 km/h     High Barometer 1025.4 hPa     
+                                               Low Barometer 994.0 hPa     
+                                               Low Wind Chill 5.6°C     
+                                               High Heat Index 33.3°C     High Rain Rate 164.6 mm/hr     Sunrise:       6:18     Sunset:      20:33">
+                                            <param name=dataInterval value=1000>
+                                                <param name=font value="Arial">
+                                                    <param name=style value="Plain">
+                                                        <param name=size value=15>
+                                                            <param name=fps value=150>
+                                                                <param name=borWidth value=3>
+                                                                    <param name=borColor value=153,000,051>
+                                                                        <param name=backColor value=255,255,000>
+                                                                            <param name=fontColor value=000,000,000>
+
+
+                                                                                </applet>
+                                                                                </p>
+                                                                                <p style="margin-top: 0; margin-bottom:0">&nbsp;</p>
+                                                                                <p style="margin-top: -3px"><font face="Verdana">Weather station
+                                                                                        <span lang="en-us">in<strong> Heraklion coast,</strong><b> Crete - Greece</b></span>.<b> 
+                                                                                            Elevation</b>: 10m</font></p>
+                                                                                <p style="margin-top: 0; margin-bottom:0"><font face="Verdana" size="2">
+                                                                                        &nbsp;Provided by <span lang="en-us"> the<b>&nbsp; 
+                                                                                                <a href="http://cirrus.meteo.noa.gr/forecast/bolam/index.htm">National Observatory of Athens</a> 
+                                                                                                - Hosted by </b><a href="http://www.nhmc.uoc.gr/index-2.htm">Natural history 
+                                                                                                museum of Crete</a></span></font></p>
+                                                                                <p style="margin-top: 0; margin-bottom:0"><font face="Verdana" size="2">
+                                                                                        Supervised by <b><a href="mailto:s_leandros@yahoo.gr">Leandros Simeonidis</a></b></font></p>
+                                                                                <p style="margin-top: 0; margin-bottom:0">&nbsp;</p>
+                                                                                <p style="margin-top: 0; margin-bottom:0">&nbsp;</p>
+                                                                                <p style="margin-top: 0; margin-bottom:0" align="center">
+                                                                                    <img border="0" src="Davis%20Logo.jpg" width="144" height="21" alt="hyr"><span style="font-style: italic; font-weight:700; vertical-align:top; background-color:#FFFFFF" lang="en-us"><font face="Arial" style="font-size: 11pt" color="#000080">
+                                                                                            </font></span><font face="Arial" style="font-size: 11pt; font-style:italic; font-weight:700; background-color:#FFFFFF; vertical-align:top" color="#000080">
+                                                                                            VANTAGE PRO2  
+
+                                                                                        </font>
+                                                                                        <span style="font-style: italic; font-weight:700; vertical-align:top; background-color:#FFFFFF" lang="en-us"><font face="Arial" style="font-size: 11pt" color="#000080">
+                                                                                                WIRELESS
+                                                                                            </font></span><font face="Arial" style="font-size: 11pt; font-style:italic; font-weight:700; background-color:#FFFFFF; vertical-align:top" color="#000080">
+                                                                                            FAN-ASPIRATED</font></p>
+                                                                                </center>
+
+                                                                                </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align=center bordercolor="#000000" colspan="2"
+                                                                                        style="border: thin solid #C0C0C0; " height="42" bgcolor="#EBEBEB" width="308">
+
+                                                                                        <p style="margin-left: 0px; margin-top: 8px" class="style1">
+
+                                                                                            <strong><a href="http://penteli.meteo.gr/stations/chania/Crete.htm">CRETE 
+                                                                                                    WEATHER STATIONS</a></strong></p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align=center bordercolor="#000000" colspan="2"
+                                                                                        style="border: thin solid #C0C0C0; " height="1" bgcolor="#EBEBEB" width="308">
+                                                                                        <p style="margin-left: 0px; margin-top: 8px" class="style2"><strong>
+                                                                                                <a href="http://www.meteorologia.gr/">HELLAS WEATHER STATIONS</a></strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td bordercolor="#000000" bgcolor="#808000" colspan="2"
+                                                                                        style="border: thin solid #C0C0C0; " width="308" height="74">
+                                                                                        <p align="center"><font face="Verdana" color="#FFFFFF">
+                                                                                                <strong style="font-weight: 400"><big>Current Weather <span lang="en-us">in</span>
+                                                                                                        Heraklion, 18:30,18/07/14</big></strong></font></td>
+                                                                                    <td nowrap bordercolor="#000000" style="border: thin solid #808080; " rowspan="141" valign="top" align="center" bgcolor="#A8B8C8" width="739" height="1155"><font face="verdana, Arial, Helvetica">
+                                                                                            <p align=center>
+                                                                                                <img src="OutsideTempHistory.gif" title="Outside Temp">&nbsp;
+                                                                                                    <font face="verdana, Arial, Helvetica">
+                                                                                                        <img src="OutsideHumidityHistory.gif" title="Outside Humidity"></font>&nbsp; 
+                                                                                                    <p align=center>
+                                                                                                        <img src="RainHistory.gif" title="Rain">&nbsp; 
+                                                                                                            <img src="RainRateHistory.gif" title="Rain Rate"><p align=center>
+                                                                                                                    <img src="WindChillHistory.gif" title="Wind Chill">&nbsp;
+                                                                                                                        <img src="DewPointHistory.gif" title="Dew Point"><p align=center>
+                                                                                                                                <img src="WindSpeedHistory.gif" title="Wind Speed">&nbsp;
+                                                                                                                                    <img src="WindDirectionHistory.gif" title="Wind Direction"><p align=center>
+                                                                                                                                            <img src="WindDirection.gif" title="Wind Direction">
+                                                                                                                                                <img src="WindSpeed.gif" title="Wind Speed">
+                                                                                                                                                    <font face="verdana, Arial, Helvetica">
+                                                                                                                                                        <img src="BarometerHistory.gif" title="Barometer History"></font><p align=center>
+                                                                                                                                                        <img src="Rain.gif" title="Today's Rain">
+                                                                                                                                                            <img src="RainStorm.gif" title="Storm Rain Total">
+                                                                                                                                                                <img src="RainRate.gif" title="Current Rain Rate">
+                                                                                                                                                                    <img src="MonthlyRain.gif" title="Monthly Rain Total">
+                                                                                                                                                                        <img src="YearlyRain.gif" title="Yearly Rain Total"></font><font face="verdana, Arial, Helvetica"><p align=center>
+                                                                                                                                                                                    &nbsp;</td>
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                    <tr>
+
+                                                                                                                                                                                        <td bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                            <font face="verdana, Arial,
+                                                                                                                                                                                                  Helvetica" style="font-size: 9pt"><strong><font color=Brown>Temperature</font></strong><br>
+                                                                                                                                                                                                    <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Èåñìïêñáóßá</span></b></font></font></td>
+                                                                                                                                                                                        <td width="155" bordercolor="#000000" style="border: thin solid #C0C0C0; " height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">25.7°C</font><br></small></strong></font>
+                                                                                                                                                                                        </td></tr>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                            <font face="verdana, Arial,
+                                                                                                                                                                                                  Helvetica" style="font-size: 9pt"><strong><font color=Brown>Humidity</font></strong><br>
+                                                                                                                                                                                                    <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Õãñáóßá</span></b></font></font></td>
+
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">78%</font><br></small></strong></font></td>
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                            <font face="verdana, Arial,
+                                                                                                                                                                                                  Helvetica" style="font-size: 9pt"><strong><font color=Brown>Dewpoint</font></strong><br>
+                                                                                                                                                                                                    <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Óçìåßï Äñüóïõ</span></b></font></font></td>
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">21.5°C</font><br></small></strong></font></td>
+
+                                                                                                                                                                                    </tr>
+                                                                                                                                                                                    <tr>
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                            <font color=Brown face="verdana, Arial,
+                                                                                                                                                                                                  Helvetica" style="font-size: 9pt"><strong>Wind<br><span lang="el">Áíåìïò</span></strong></font></td>
+                                                                                                                                                                                        <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" >
+                                                                                                                                                                                            <font face="verdana, Arial,
+                                                                                                                                                                                                  Helvetica"><strong><font color="#3366FF"><small>20.9 &nbsp;km/h at N<br></small></font></strong>
+                                                                                                                                                                                            </font></td>
+                                                                                                                                                                                        <tr>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Barometer</font></strong><br>
+                                                                                                                                                                                                        <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Âáñüìåôñï</span></b></font></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">1008.5 &amp; Falling Slowly</font><br></small></strong></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Today's Rain</font></strong><br>
+                                                                                                                                                                                                        <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Óçìåñéíüò Õåôüò</span></b></font></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">0.0&nbsp;mm</font><br></small></strong></font>
+                                                                                                                                                                                            </td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Rain Rate</font></strong><br>
+                                                                                                                                                                                                        <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Ñáãäáéüôçôá</span></b></font></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">0.0&nbsp;mm/hr</font><br></small></strong></font>
+                                                                                                                                                                                            </td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Storm Total</font></strong><br><b>
+
+                                                                                                                                                                                                        <font color="#A52A2A"><span lang="el">ÔñÝ÷ïõóá êáêïêáéñßá</span></font></b></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">0.0&nbsp;mm</font><br></small></strong></font>
+                                                                                                                                                                                            </td>
+                                                                                                                                                                                        </tr> 
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Monthly Rain</font></strong><br>
+                                                                                                                                                                                                        <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">Ìçíéáßïò Õåôüò</span></b></font></font></td>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">0.0&nbsp;mm</font><br></small></strong></font>
+                                                                                                                                                                                            </td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" >
+                                                                                                                                                                                                <font face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><font color=Brown>Yearly Rain</font></strong><br>
+                                                                                                                                                                                                        <font color="#A52A2A"><b>
+                                                                                                                                                                                                        <span lang="el">ÅôÞóéïò õåôüò</span></b></font></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><small><font color="#3366FF">90.0&nbsp;mm</font><br></small></strong></font>
+
+                                                                                                                                                                                            </td>
+                                                                                                                                                                                        </tr> 
+
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=Brown style="font-size: 9pt">Wind Chill<br><span lang="el">
+                                                                                                                                                                                                        Áßóèçóç øý÷ïõò</span></font></strong></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="46" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color="#3366FF"><small>23.9°C<br></small></font></strong>
+                                                                                                                                                                                                </font></td> </tr>
+                                                                                                                                                                                        <tr>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=Brown style="font-size: 9pt">THW Index<br><span lang="el">
+                                                                                                                                                                                                        ÖáéíïìåíéêÞ Èåñì.</span></font></strong></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color="#3366FF"><small>25.7°C<br></small></font></strong>
+                                                                                                                                                                                                </font></td> </tr> <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=Brown style="font-size: 9pt">Heat Index<br><span lang="el">
+                                                                                                                                                                                                        Äåßêôçò äõóöïñßáò</span></font></strong></font></td>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color="#3366FF"><small>27.4°C<br></small></font></strong>
+                                                                                                                                                                                                </font></td> </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=Brown style="font-size: 9pt">Sunrise<br><span lang="el">
+
+                                                                                                                                                                                                        ÁíáôïëÞ</span></font></strong></font></td>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color="#3366FF"><small> 6:18&nbsp;<br></small></font></strong></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=Brown style="font-size: 9pt">Sunset<br><span lang="el">
+                                                                                                                                                                                                        Äýóç</span></font></strong></font></td>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="45" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color="#3366FF"><small>20:33&nbsp;<br></small></font></strong></font></td>
+                                                                                                                                                                                        </tr>  <tr>
+                                                                                                                                                                                            <td bordercolor="#000000" bgcolor="#808000" colspan="2"
+                                                                                                                                                                                                style="border: thin solid #808080; " width="308" height="19" >
+                                                                                                                                                                                                <p align="center"><font color="#FFFFFF" face="Verdana,Arial">
+                                                                                                                                                                                                        <span style="font-size: 9pt;"><b>Today's Highs/Lows - ÌÝãéóôåò/ÅëÜ÷éóôåò</b></span></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="64" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High 
+                                                                                                                                                                                                        Temperature</p><p>Low Temperature</p></font></strong>
+
+                                                                                                                                                                                                </font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="64" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>25.9°C<font color=#228b22>&nbsp; 
+                                                                                                                                                                                                        &nbsp;at&nbsp;&nbsp;</font>
+                                                                                                                                                                                                        17:27</p><p>22.6°C<font color=#228b22>&nbsp;&nbsp;at&nbsp; 
+                                                                                                                                                                                                        &nbsp;</font>  4:48</p></small></font></strong></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="64" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High Humidity</p><p>
+                                                                                                                                                                                                        Low Humidity</p></font>
+                                                                                                                                                                                                    </strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="64" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>87%<font color=#228b22>&nbsp;&nbsp; 
+                                                                                                                                                                                                        at&nbsp;&nbsp;</font>15:17</p>
+                                                                                                                                                                                                        <p>66% <font color=#228b22>&nbsp;&nbsp;at&nbsp;&nbsp;</font>
+                                                                                                                                                                                                        7:37</p></small></font></strong></font></td>
+
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="64" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High Dewpoint</p><p>
+                                                                                                                                                                                                        Low Dewpoint</p></font></strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="64" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>23.3°C&nbsp;&nbsp;
+                                                                                                                                                                                                        <font color=#228b22>at&nbsp;&nbsp;</font>14:59</p>
+                                                                                                                                                                                                        <p>17.2°C&nbsp;<font color=#228b22>at&nbsp;</font>
+                                                                                                                                                                                                        4:42</p></small></font></strong></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="64" >
+                                                                                                                                                                                                <font color=#228b22 face="verdana, Arial,
+                                                                                                                                                                                                      Helvetica" style="font-size: 9pt"><strong><p>High Barometer</p><p>Low Barometer</p></strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="64" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>1011.2&nbsp;hPa<font color=#228b22>&nbsp; 
+                                                                                                                                                                                                        &nbsp;at&nbsp;&nbsp;</font>  0:01</p>
+                                                                                                                                                                                                        <p>1008.5&nbsp;hPa<font color=#228b22>&nbsp;&nbsp;at&nbsp;&nbsp;</font>
+                                                                                                                                                                                                        18:24</p></small></font></strong></font></td>
+                                                                                                                                                                                        </tr><tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="22" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High Wind Gust</p></font></strong></font></td>
+
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="22" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>40.2&nbsp;&nbsp;
+                                                                                                                                                                                                        <font color=#228b22>km/h at&nbsp;&nbsp;</font>14:54</p>
+                                                                                                                                                                                                        </small></font></strong></font></td>
+                                                                                                                                                                                        </tr><tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="22" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High Rain Rate</p></font></strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="22" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>0.0 mm/hr&nbsp;&nbsp;
+                                                                                                                                                                                                        <font color=#228b22>at&nbsp;&nbsp;</font>----</p>
+
+                                                                                                                                                                                                        </small></font></strong></font></td>
+                                                                                                                                                                                        </tr><tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="22" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>Low Wind Chill</p></font></strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="22" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>22.8°C&nbsp;&nbsp;
+                                                                                                                                                                                                        <font color=#228b22> at </font> 4:36</p></small></font></strong></font></td>
+                                                                                                                                                                                        </tr>
+
+                                                                                                                                                                                        <tr>
+                                                                                                                                                                                            <td  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="149" height="22" ><font face="verdana, Arial,
+                                                                                                                                                                                                        Helvetica"><strong><font color=#228b22 style="font-size: 9pt"><p>High Heat 
+                                                                                                                                                                                                        Index</p></font></strong></font></td>
+                                                                                                                                                                                            <td align=left  bordercolor="#000000" style="border: thin solid #C0C0C0; " width="155" height="22" ><font face="verdana,
+                                                                                                                                                                                                        Arial, Helvetica"><strong><font color=#ff4500><small><p>28.3°C&nbsp;&nbsp;
+                                                                                                                                                                                                        <font color=#228b22>at&nbsp;&nbsp;</font> 17:24</p>
+                                                                                                                                                                                                        </small></font></strong></font></td>
+                                                                                                                                                                                        </tr>
+                                                                                                                                                                                        </table>		</div>
+  </body>
+</html>
