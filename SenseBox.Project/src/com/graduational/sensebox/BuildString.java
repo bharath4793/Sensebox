@@ -70,6 +70,9 @@ public class BuildString extends Builder {
 					query.append("sensor=" + sensor + "&flag=" + String.valueOf(elementClicked) + "&separator=ASC");
 					break;
 				}
+			case 11:
+				query.append("sensor=" + sensor + "&flag=" + String.valueOf(elementClicked));
+				break;
 			//Else:
 			default:
 				query.append("sensor=" + sensor + "&flag=" + String.valueOf(4));

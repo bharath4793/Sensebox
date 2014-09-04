@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="always"
+        android:title="refresh"/>
+    <item
+        android:id="@+id/lastTwoDays"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
+        android:title="Last 2 Days Results"/>
+    <item
+        android:id="@+id/lastWeek"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
+        android:title="Last Week Results"/>
+    <item
+        android:id="@+id/lastMonth"
+        android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
+        android:title="Last Month Results"/>
+
+</menu>

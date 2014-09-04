@@ -15,7 +15,7 @@
         android:label="@string/default_action_bar_text"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.graduational.sensebox.GraphingClasses.MainActivity"
+            android:name="com.graduational.sensebox.graphingClasses.MainActivity"
             android:label="@string/default_action_bar_text" 
             android:configChanges="orientation|screenSize"> 
             <!--Now, when your change orientation (and screen size changes), 
@@ -26,28 +26,29 @@
         </activity>
         
          <activity
-            android:name="com.graduational.sensebox.GraphingClasses.GraphActivity"
+            android:name="com.graduational.sensebox.graphingClasses.GraphActivity"
             android:label="@string/two_days_activity_name"
+                        android:noHistory="true"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.graduational.sensebox.GraphingClasses.LastWeekGraphActivity"
+            android:name="com.graduational.sensebox.graphingClasses.LastWeekGraphActivity"
             android:label="@string/one_week_graph_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.graduational.sensebox.GraphingClasses.LastMonthGraphActivity"
+            android:name="com.graduational.sensebox.graphingClasses.LastMonthGraphActivity"
             android:label="@string/last_month_graph_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
             </intent-filter>
         </activity>
                 <activity
-            android:name="com.graduational.sensebox.GraphingClasses.LastThreeMonthsGraphActivity"
+            android:name="com.graduational.sensebox.graphingClasses.LastThreeMonthsGraphActivity"
             android:label="@string/last_three_months_graph_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
@@ -57,12 +58,13 @@
           <activity
             android:name="com.graduational.sensebox.CurrentConditionsActivity"
             android:label="@string/reports_activity_name"
+            android:noHistory="true"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
             </intent-filter>
         </activity>
          <activity
-            android:name="com.graduational.sensebox.ReportsAtivity"
+            android:name="com.graduational.sensebox.minMaxReportClasses.ReportsAtivity"
             android:label="@string/daily_report_activity_name"
             android:configChanges="orientation|screenSize" >
             <intent-filter>
@@ -70,7 +72,7 @@
         </activity>
         
         <activity
-            android:name="com.graduational.sensebox.SplashScreen"
+            android:name="com.graduational.sensebox.splashScreen.SplashScreen"
             android:label="@string/splash_screen_name" 
             android:noHistory="true">
             
@@ -78,6 +80,13 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.graduational.sensebox.resultsReportClasses.ResultsActivity"
+            android:label="@string/results_activity_name"
+            android:configChanges="orientation|screenSize" >
+            <intent-filter>
             </intent-filter>
         </activity>
     </application>

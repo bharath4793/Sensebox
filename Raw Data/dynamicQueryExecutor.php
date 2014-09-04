@@ -10,6 +10,10 @@ $query = "select Date,Time,$sensor from analoog0";
 $sql_query = resolveFlag($flag, $sensor, $separator);
 
 
+$sql = mysqli_query($mysqli, "set @row:=-1;");
+if (!$sql) {
+  die("Error running variable query $sql: " . mysql_error());
+}
 $sql = mysqli_query($mysqli, $sql_query);
 if (!$sql) {
   die("Error running $sql: " . mysql_error());
@@ -52,7 +56,6 @@ function jsonization($sensor, $sql) {
 }
 
 
-
 function resolveFlag($flag, $sensor, $separator) {
 	$specialQuery;
 	switch($flag) {
@@ -66,14 +69,63 @@ function resolveFlag($flag, $sensor, $separator) {
 			break;
 		//Last Week.
 		case 2:
-			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+			$specialQuery = "	SELECT Date, Time, $sensor
+								FROM
+									analoog0
+									INNER JOIN
+									(
+										SELECT Row_Num
+										FROM
+											(
+												SELECT @row:=@row+1 AS rownum, Row_Num
+												FROM
+													(
+														SELECT Row_Num FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ORDER BY Row_Num
+													) AS sorted
+											) as ranked
+										WHERE rownum % 2 = 0
+									) AS subset
+										ON subset.Row_Num = analoog0.Row_Num";
 			break;
 		//Last Month.
 		case 3:
-			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+			$specialQuery = "	SELECT Date, Time, $sensor
+								FROM
+									analoog0
+									INNER JOIN
+									(
+										SELECT Row_Num
+										FROM
+											(
+												SELECT @row:=@row+1 AS rownum, Row_Num
+												FROM
+													(
+														SELECT Row_Num FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ORDER BY Row_Num
+													) AS sorted
+											) as ranked
+										WHERE rownum % 8 = 0
+									) AS subset
+										ON subset.Row_Num = analoog0.Row_Num";
+		
 			break;
 		case 4:
-			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 3 MONTH)";
+			$specialQuery = "	SELECT Date, Time, $sensor
+								FROM
+									analoog0
+									INNER JOIN
+									(
+										SELECT Row_Num
+										FROM
+											(
+												SELECT @row:=@row+1 AS rownum, Row_Num
+												FROM
+													(
+														SELECT Row_Num FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ORDER BY Row_Num
+													) AS sorted
+											) as ranked
+										WHERE rownum % 10 = 0
+									) AS subset
+										ON subset.Row_Num = analoog0.Row_Num";
 			break;
 		case 5:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE Date = CURDATE() ORDER BY Time DESC LIMIT 1";
@@ -93,6 +145,7 @@ function resolveFlag($flag, $sensor, $separator) {
 		case 10:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ORDER BY $sensor $separator, Time DESC limit 1";		
 			break;
+
 		//Else Last 24 hours.
 		default:
 			$specialQuery = "SELECT Date, Time, $sensor FROM analoog0 WHERE analoog0.Date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)";

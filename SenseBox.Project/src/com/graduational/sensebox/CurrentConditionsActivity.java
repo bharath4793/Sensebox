@@ -8,9 +8,6 @@ import java.util.concurrent.CountDownLatch;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.graduational.sensebox.DatabaseClasses.DatabaseConnector;
-import com.graduational.sensebox.navigationDrawer.NavDrawer;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -21,6 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.graduational.sensebox.databaseClasses.DatabaseConnector;
+import com.graduational.sensebox.jsonParsing.JSON_resolver;
+import com.graduational.sensebox.jsonParsing.JsonToStringConverter;
+import com.graduational.sensebox.navigationDrawer.NavDrawer;
 
 public class CurrentConditionsActivity extends Activity implements DefinedValues {
     private String[] urlArray;

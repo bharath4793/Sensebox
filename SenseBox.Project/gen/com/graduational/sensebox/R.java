@@ -236,12 +236,15 @@ public final class R {
     public static final class drawable {
         public static final int drawer_shadow=0x7f020000;
         public static final int ic_action_refresh=0x7f020001;
-        public static final int ic_drawer=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int logo=0x7f020004;
+        public static final int ic_action_search=0x7f020002;
+        public static final int ic_drawer=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int ic_menu_moreoverflow_normal_holo_dark=0x7f020005;
+        public static final int ic_menu_refresh=0x7f020006;
+        public static final int logo=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f090016;
+        public static final int action_settings=0x7f090019;
         public static final int container=0x7f090000;
         public static final int content_frame=0x7f090004;
         public static final int drawer_layout=0x7f090003;
@@ -252,10 +255,16 @@ public final class R {
         public static final int graph4=0x7f09000b;
         public static final int graph5=0x7f09000c;
         public static final int graph6=0x7f09000d;
+        public static final int horizontalScroll=0x7f090016;
         public static final int imgLogo=0x7f090002;
+        public static final int lastMonth=0x7f09001d;
+        public static final int lastTwoDays=0x7f09001b;
+        public static final int lastWeek=0x7f09001c;
         public static final int layout=0x7f090001;
         public static final int left_drawer=0x7f090005;
-        public static final int refresh=0x7f090017;
+        public static final int maintable=0x7f090018;
+        public static final int refresh=0x7f09001a;
+        public static final int scroll=0x7f090017;
         public static final int scrollView=0x7f090006;
         public static final int textView1=0x7f090015;
         public static final int textView2=0x7f090010;
@@ -278,9 +287,12 @@ public final class R {
         public static final int graphs=0x7f030008;
         public static final int min_max_activity=0x7f030009;
         public static final int report_activity=0x7f03000a;
+        public static final int res_lay=0x7f03000b;
+        public static final int results_activity=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f080000;
+        public static final int results_activity_menu=0x7f080001;
     }
     public static final class string {
         public static final int action_activity=0x7f060004;
@@ -296,6 +308,7 @@ public final class R {
         public static final int last_three_months_graph_activity_name=0x7f06000e;
         public static final int one_week_graph_activity_name=0x7f06000c;
         public static final int reports_activity_name=0x7f060008;
+        public static final int results_activity_name=0x7f060010;
         public static final int splash_screen_name=0x7f060009;
         public static final int title1=0x7f06000a;
         public static final int two_days_activity_name=0x7f060007;

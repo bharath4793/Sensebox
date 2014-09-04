@@ -14,7 +14,7 @@ $value8=$_GET['value8'];
 
 
 
-$opendb=mysql_connect("localhost","root","") or die(mysql_error());
+$opendb=mysql_connect("localhost","root","sailor437") or die(mysql_error());
 $db = mysql_select_db('arduino',$opendb);
 
 if ($opendb){
@@ -22,7 +22,7 @@ if ($opendb){
   if (!$db) {
 	echo mysql_error();
 	}
-  $query = "INSERT INTO analoog0 VALUES(curdate(), curtime(), '$value0', '$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8' );";
+  $query = "INSERT INTO analoog0 VALUES(DEFAULT, curdate(), curtime(), '$value0', '$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8' );";
   /* Run the query */
   $result= mysql_query($query)or die(mysql_error());
   mysql_close($opendb);

@@ -9,13 +9,14 @@
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
     <string name="two_days_activity_name">Last 2 Days</string>
-        <string name="reports_activity_name">Current Weather Conditions</string>
+    <string name="reports_activity_name">Current Weather Conditions</string>
     <string name="splash_screen_name">Sense Box </string>
     <string name="title1">Graphs </string>
-        <string name="default_action_bar_text">24 Hours Graphs </string>
+    <string name="default_action_bar_text">24 Hours Graphs </string>
     <string name="one_week_graph_activity_name">Weekly Graphs </string>
-        <string name="last_month_graph_activity_name">Monthly Graphs </string>
-                <string name="last_three_months_graph_activity_name">Three Last Months Graphs </string>
-                                <string name="daily_report_activity_name">Daily Min Max Report </string>
-
+    <string name="last_month_graph_activity_name">Monthly Graphs </string>
+    <string name="last_three_months_graph_activity_name">Three Last Months Graphs </string>
+    <string name="daily_report_activity_name">Daily Min Max Report </string>
+    <string name="results_activity_name">24 Hours Report</string>
+    
 </resources>

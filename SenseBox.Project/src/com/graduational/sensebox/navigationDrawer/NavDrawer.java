@@ -1,24 +1,17 @@
 package com.graduational.sensebox.navigationDrawer;
 
-import com.graduational.sensebox.DefinedValues;
-import com.graduational.sensebox.R;
-import com.graduational.sensebox.R.drawable;
-import com.graduational.sensebox.R.id;
-import com.graduational.sensebox.R.layout;
-import com.graduational.sensebox.R.string;
+
 
 import android.app.Activity;
-import android.app.ActionBar.LayoutParams;
-import android.graphics.Color;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.graduational.sensebox.DefinedValues;
+import com.graduational.sensebox.R;
 
 
 public class NavDrawer implements DefinedValues{
@@ -88,5 +81,12 @@ public class NavDrawer implements DefinedValues{
 	public ListView getDrawerList() {
 		return drawerList;
 	}
+
+
+	public DrawerItemClickListener getClickListener() {
+		return clickListener;
+	}
+	
+	
 
 }

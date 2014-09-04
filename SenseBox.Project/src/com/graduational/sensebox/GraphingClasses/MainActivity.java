@@ -1,4 +1,4 @@
-package com.graduational.sensebox.GraphingClasses;
+package com.graduational.sensebox.graphingClasses;
 
 import java.text.ParseException;
 
@@ -16,10 +16,10 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.graduational.sensebox.DefinedValues;
-import com.graduational.sensebox.JSON_resolver;
 import com.graduational.sensebox.R;
-import com.graduational.sensebox.SplashScreen;
+import com.graduational.sensebox.jsonParsing.JSON_resolver;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
+import com.graduational.sensebox.splashScreen.SplashScreen;
 
 
 public class MainActivity extends Activity implements DefinedValues {
@@ -50,12 +50,11 @@ public class MainActivity extends Activity implements DefinedValues {
 				e.printStackTrace();
 			}
         }
-        graphDrawer = new GraphDrawer();
-   
         layouts = graphLayouts();
         for(int i = 0; i < GRAPH_NUM; i++) {
         	try {
-				graphDrawer.makeGraphs(layouts[i], graphLabels[i], this, jsonArray[i], new JSON_resolver());
+        		new GraphDrawer(layouts[i], graphLabels[i], this, jsonArray[i], new JSON_resolver()).execute();
+				
 			} catch (JSONException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

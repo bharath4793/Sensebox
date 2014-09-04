@@ -1,4 +1,4 @@
-package com.graduational.sensebox.GraphingClasses;
+package com.graduational.sensebox.graphingClasses;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import org.json.JSONObject;
 
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.R;
-import com.graduational.sensebox.SplashScreen;
 import com.graduational.sensebox.R.id;
 import com.graduational.sensebox.R.layout;
 import com.graduational.sensebox.R.menu;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
+import com.graduational.sensebox.splashScreen.SplashScreen;
 
 
 import android.app.Activity;

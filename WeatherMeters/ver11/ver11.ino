@@ -5,6 +5,7 @@
 #include <Wire.h>
 #include <stdlib.h>
 #include <Servo.h>
+#include <avr/wdt.h>
 
 
 #define BMP085_ADDRESS 0x77  // I2C address of BMP085
@@ -64,8 +65,8 @@ char tBuf[16];
 
 // set this to the number of milliseconds delay
 // this is 30 seconds
-#define delayMillis 160000UL
-#define gustDelayMillis 30000L
+#define delayMillis 360000UL
+#define gustDelayMillis 120000L
 
 unsigned long thisMillis = 0;
 unsigned long lastMillis = 0;
@@ -132,6 +133,9 @@ void setup() {
   srv.begin();
   myservo.write(inner_servo_position);
   dht.begin();
+  
+  wdt_enable(WDTO_8S);
+  
   //One second delay to let thing settle down
   delay(1000);
 }
@@ -226,7 +230,7 @@ void loop() {
     strcat(outBuf, tBuf);
 
     strcat(outBuf, "&value1=");
-    itoa(dht_humidity, tBuf, 10);
+    dtostrf(dht_humidity, 2, 2, tBuf);
     strcat(outBuf, tBuf);
 
     strcat(outBuf, "&value2=");
@@ -267,6 +271,7 @@ void loop() {
     totalCount++;
     Serial.println(totalCount, DEC);
   }
+  wdt_reset();
 }
 
 //Humidity handler function

@@ -1,4 +1,4 @@
-package com.graduational.sensebox.DatabaseClasses;
+package com.graduational.sensebox.databaseClasses;
 
 import java.util.List;
 

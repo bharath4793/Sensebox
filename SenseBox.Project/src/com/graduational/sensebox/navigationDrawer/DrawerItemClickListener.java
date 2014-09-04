@@ -2,11 +2,12 @@ package com.graduational.sensebox.navigationDrawer;
 
 import com.graduational.sensebox.BuildString;
 import com.graduational.sensebox.Builder;
-import com.graduational.sensebox.ReportsAtivity;
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.CurrentConditionsActivity;
-import com.graduational.sensebox.SplashScreen;
-import com.graduational.sensebox.GraphingClasses.GraphActivity;
+import com.graduational.sensebox.graphingClasses.GraphActivity;
+import com.graduational.sensebox.minMaxReportClasses.ReportsAtivity;
+import com.graduational.sensebox.resultsReportClasses.ResultsActivity;
+import com.graduational.sensebox.splashScreen.SplashScreen;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +22,6 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 	private Activity activity;
 
 	public DrawerItemClickListener(Activity activity) {
-
 		this.activity = activity;
 	}
 
@@ -145,6 +145,14 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 					intent.putExtra("position", position);
 					activity.startActivity(intent);
 					break;
+				case 11:
+					urlArray = makeURL(0, sensorsArray, null);
+					intent = new Intent(activity, ResultsActivity.class);
+					intent.putExtra("urls", urlArray);
+					intent.putExtra("title", "24 Hours Report");
+					intent.putExtra("position", last24hours);
+					activity.startActivity(intent);
+					break;
 				}
 
 			}
@@ -152,16 +160,8 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 
 	}
 
-	// private void restartApp() {
-	// System.out.println(mainActivity.getTitle());
-	// mainActivity.finish();
-	// activity.finish();
-	// Intent intent = new Intent(mainActivity, SplashScreen.class);
-	// mainActivity.startActivity(intent);
-	//
-	// }
 
-	private String[] makeURL(int elementClicked, String[] sensorsArray, String separator) {
+	public String[] makeURL(int elementClicked, String[] sensorsArray, String separator) {
 		String[] urlArray = new String[GRAPH_NUM];
 		for (int i = 0; i < sensorsArray.length; i++) {
 			Builder builder = new BuildString();

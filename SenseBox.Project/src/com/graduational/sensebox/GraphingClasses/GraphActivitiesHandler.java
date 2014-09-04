@@ -1,4 +1,4 @@
-package com.graduational.sensebox.GraphingClasses;
+package com.graduational.sensebox.graphingClasses;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.graduational.sensebox.DefinedValues;
-import com.graduational.sensebox.JSON_resolver;
-import com.graduational.sensebox.JsonToStringConverter;
-import com.graduational.sensebox.DatabaseClasses.DatabaseConnector;
+import com.graduational.sensebox.databaseClasses.DatabaseConnector;
+import com.graduational.sensebox.jsonParsing.JSON_resolver;
+import com.graduational.sensebox.jsonParsing.JsonToStringConverter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -70,11 +70,12 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 	protected void onPostExecute(Void result) {	
 		super.onPostExecute(result);
 
-        graphDrawer = new GraphDrawer();
+       // graphDrawer = new GraphDrawer();
         layouts = graphLayouts();
         for(int i = 0; i < GRAPH_NUM; i++) {
         	try {
-				graphDrawer.makeGraphs(layouts[i], graphLabels[i], activity, jsonArray[i], new JSON_resolver());
+        		new GraphDrawer(layouts[i], graphLabels[i], activity, jsonArray[i], new JSON_resolver()).execute();
+				
 			} catch (JSONException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
