@@ -43,7 +43,7 @@ public class SplashScreen extends Activity implements DefinedValues {
 	}
     
     private String[] makeURL(int elementClicked, String[] sensorsArray) {
-    	String[] urlArray = new String[GRAPH_NUM];
+    	String[] urlArray = new String[SENSORS_COUNT];
     	for(int i = 0; i < sensorsArray.length; i++) {
         	Builder builder = new BuildString();
     		urlArray[i] = builder.buildString(elementClicked, sensorsArray[i], null);

@@ -162,7 +162,7 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 
 
 	public String[] makeURL(int elementClicked, String[] sensorsArray, String separator) {
-		String[] urlArray = new String[GRAPH_NUM];
+		String[] urlArray = new String[SENSORS_COUNT];
 		for (int i = 0; i < sensorsArray.length; i++) {
 			Builder builder = new BuildString();
 

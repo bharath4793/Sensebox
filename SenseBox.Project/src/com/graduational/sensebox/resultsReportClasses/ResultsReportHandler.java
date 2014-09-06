@@ -27,9 +27,9 @@ import com.graduational.sensebox.jsonParsing.JSON_resolver;
 import com.graduational.sensebox.jsonParsing.JsonToStringConverter;
 
 public class ResultsReportHandler extends AsyncTask<Void, Void, Void> implements DefinedValues{
-    private String[] selectedItemStringArray = new String[GRAPH_NUM];
+    private String[] selectedItemStringArray = new String[SENSORS_COUNT];
     private JsonToStringConverter converter = new JsonToStringConverter();
-	private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
+	private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
     private DatabaseConnector databaseConnector = new DatabaseConnector();
     private JSON_resolver resolver = null;
     private ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
@@ -62,7 +62,7 @@ public class ResultsReportHandler extends AsyncTask<Void, Void, Void> implements
 
 	@Override
 	protected Void doInBackground(Void... params) {
-        jsonArray = new JSONObject[GRAPH_NUM];
+        jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < urlArray.length; i++) {
         	try {
                 selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
@@ -75,7 +75,7 @@ public class ResultsReportHandler extends AsyncTask<Void, Void, Void> implements
 				if (i == 0) {
 					date = resolver.getDate();
 				}
-				sensorsData.add(resolver.getTemp());
+				sensorsData.add(resolver.getData());
 			} catch (JSONException | ParseException e) {
 				e.printStackTrace();
 			}

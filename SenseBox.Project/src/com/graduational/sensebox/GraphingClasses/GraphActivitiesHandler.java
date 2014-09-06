@@ -18,9 +18,9 @@ import android.os.AsyncTask;
 import android.widget.LinearLayout;
 
 public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implements DefinedValues{
-    private String[] selectedItemStringArray = new String[GRAPH_NUM];
+    private String[] selectedItemStringArray = new String[SENSORS_COUNT];
     private JsonToStringConverter converter = new JsonToStringConverter();
-	private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
+	private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
 	private GraphDrawer graphDrawer;
     private LinearLayout[] layouts;
     private DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -47,13 +47,13 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 
 	@Override
 	protected Void doInBackground(Void... params) {
-        for (int i = 0; i < GRAPH_NUM; i++) {
+        for (int i = 0; i < SENSORS_COUNT; i++) {
             selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
             selectedItemStringArray = converter.converter(selectedItemObjectArray);
         }
     	
         
-        jsonArray = new JSONObject[GRAPH_NUM];
+        jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < urlArray.length; i++) {
         	try {
 				JSONObject obj = new JSONObject(selectedItemStringArray[i]);
@@ -72,7 +72,7 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 
        // graphDrawer = new GraphDrawer();
         layouts = graphLayouts();
-        for(int i = 0; i < GRAPH_NUM; i++) {
+        for(int i = 0; i < SENSORS_COUNT; i++) {
         	try {
         		new GraphDrawer(layouts[i], graphLabels[i], activity, jsonArray[i], new JSON_resolver()).execute();
 				
@@ -88,9 +88,9 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 
 
 	private LinearLayout[] graphLayouts() {
-    	LinearLayout[] graphSpots = new LinearLayout[GRAPH_NUM];
+    	LinearLayout[] graphSpots = new LinearLayout[SENSORS_COUNT];
     	Resources resources = activity.getResources();
-    	for (int i = 0; i < GRAPH_NUM; i++) {
+    	for (int i = 0; i < SENSORS_COUNT; i++) {
     		String idName = "graph" + i;
     		graphSpots[i] = (LinearLayout) activity.findViewById(resources.getIdentifier(idName, "id", activity.getPackageName()));
     	}

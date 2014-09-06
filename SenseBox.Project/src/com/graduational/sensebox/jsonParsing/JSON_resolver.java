@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class JSON_resolver {
 
-    ArrayList<String> temperature = new ArrayList<String>();
+    ArrayList<String> data = new ArrayList<String>();
     ArrayList<Date> date = new ArrayList<Date>();
     private JSONObject jObject;
     public JSON_resolver() throws JSONException, ParseException {
@@ -28,7 +28,7 @@ public class JSON_resolver {
             JSONObject rowsElements = rowsArray.getJSONObject(i);
             JSONArray valuesArray = rowsElements.getJSONArray("c");
             JSONObject temperatureObject = valuesArray.getJSONObject(1); //Change this to get Date or Temp
-            temperature.add(temperatureObject.getString("Value"));
+            data.add(temperatureObject.getString("Value"));
 
             JSONObject dateObject = valuesArray.getJSONObject(0);
             String dateString = (String) dateObject.get("Date");
@@ -36,13 +36,10 @@ public class JSON_resolver {
             Date dateParser = new SimpleDateFormat("yyyy, MM, dd, HH, mm, ss").parse(dateString);
             date.add(dateParser);
         }
-//        System.out.println("ArrayList -> " + temperature.get(0));
-//        System.out.println("Date AL --> " + date.get(0));
-
     }
 
-    public ArrayList<String> getTemp() {
-        return temperature;
+    public ArrayList<String> getData() {
+        return data;
     }
 
     public ArrayList<Date> getDate() {

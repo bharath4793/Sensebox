@@ -36,9 +36,9 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 	private JSONObject[] minJsonArray;
 
 	private ArrayList<JSONObject> minItemObjectArray = new ArrayList<>();
-	private String[] minItemStringArray = new String[GRAPH_NUM];
+	private String[] minItemStringArray = new String[SENSORS_COUNT];
 	private ArrayList<JSONObject> maxItemObjectArray = new ArrayList<>();
-	private String[] maxItemStringArray = new String[GRAPH_NUM];
+	private String[] maxItemStringArray = new String[SENSORS_COUNT];
 	private JSON_resolver minResolver;
 	private JSON_resolver maxResolver;
 	ArrayList<Date> maxDate;
@@ -88,15 +88,15 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 		// textView.setText(data);
 		if (maxResolver != null && minResolver != null) {
 			maxDate = maxResolver.getDate();
-			maxSensorValue = maxResolver.getTemp();
+			maxSensorValue = maxResolver.getData();
 
 			minDate = minResolver.getDate();
-			minSensorValue = minResolver.getTemp();
+			minSensorValue = minResolver.getData();
 		}
 
-		textViews = new TextView[GRAPH_NUM];
+		textViews = new TextView[SENSORS_COUNT];
 		Resources resources = activity.getResources();
-		for (int i = 0; i < GRAPH_NUM; i++) {
+		for (int i = 0; i < SENSORS_COUNT; i++) {
 			int k = i + 1;
 			String idName = "textView" + k;
 			textViews[i] = (TextView) activity.findViewById(resources
@@ -108,15 +108,15 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 		// dateTimeTextView.setText("Current Weather in Knossos:\n" +
 		// date.get(0));
 
-		for (int i = 0; i < GRAPH_NUM; i++) {
+		for (int i = 0; i < SENSORS_COUNT; i++) {
 			textViews[i].append("\nMax: " + maxSensorValue.get(i) + "\n"
 					+ "Min: " + minSensorValue.get(i));
 		}
 	}
 	
 	private void jsonProccessing(String[] maxItemStringArray, String[] minItemStringArray) {
-		maxJsonArray = new JSONObject[GRAPH_NUM];
-		minJsonArray = new JSONObject[GRAPH_NUM];
+		maxJsonArray = new JSONObject[SENSORS_COUNT];
+		minJsonArray = new JSONObject[SENSORS_COUNT];
 		for (int i = 0; i < maxItemStringArray.length; i++) {
 			try {
 				JSONObject maxObject = new JSONObject(maxItemStringArray[i]);
@@ -135,7 +135,7 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 		} catch (JSONException | ParseException e1) {
 			e1.printStackTrace();
 		}
-		for (int i = 0; i < GRAPH_NUM; i++) {
+		for (int i = 0; i < SENSORS_COUNT; i++) {
 			try {
 				maxResolver.setjObject(maxJsonArray[i]);
 				maxResolver.resolve();
@@ -153,7 +153,7 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 	
 	private void executeUrls(String[] minUrlArray, String[] maxUrlArray) {
 
-		for (int i = 0; i < GRAPH_NUM; i++) {
+		for (int i = 0; i < SENSORS_COUNT; i++) {
 			minItemObjectArray.add(databaseConnector.getData(minUrlArray[i]));
 			minItemStringArray = converter.converter(minItemObjectArray);
 

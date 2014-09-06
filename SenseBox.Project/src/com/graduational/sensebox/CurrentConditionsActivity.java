@@ -27,11 +27,11 @@ import com.graduational.sensebox.navigationDrawer.NavDrawer;
 public class CurrentConditionsActivity extends Activity implements DefinedValues {
     private String[] urlArray;
     private ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
-    private String[] selectedItemStringArray = new String[GRAPH_NUM];
+    private String[] selectedItemStringArray = new String[SENSORS_COUNT];
     private DatabaseConnector databaseConnector = new DatabaseConnector();
     private JsonToStringConverter converter = new JsonToStringConverter();
     final CountDownLatch latch = new CountDownLatch(1); //wait for thread to complete 
-	private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
+	private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
 	private TextView[] textViews;
 	private TextView dateTimeTextView;
     private CharSequence mTitle;
@@ -59,7 +59,7 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
 			
 			@Override
 			public void run() {
-		        for (int i = 0; i < GRAPH_NUM; i++) {
+		        for (int i = 0; i < SENSORS_COUNT; i++) {
 		            selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
 		            selectedItemStringArray = converter.converter(selectedItemObjectArray);
 		        }
@@ -75,7 +75,7 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
 		}
 		
         
-        jsonArray = new JSONObject[GRAPH_NUM];
+        jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < urlArray.length; i++) {
         	try {
 				JSONObject obj = new JSONObject(selectedItemStringArray[i]);
@@ -90,7 +90,7 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        for(int i = 0; i < GRAPH_NUM; i++) {   		
+        for(int i = 0; i < SENSORS_COUNT; i++) {   		
             try {
                 resolver.setjObject(jsonArray[i]);
                 resolver.resolve();
@@ -105,14 +105,14 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
         //   textView.setText(data);
         if (resolver != null) {
             date = resolver.getDate();
-            sensorValue = resolver.getTemp();
+            sensorValue = resolver.getData();
         }
 		
 
         
-        textViews = new TextView[GRAPH_NUM];
+        textViews = new TextView[SENSORS_COUNT];
         Resources resources = getResources();
-        for(int i = 0; i < GRAPH_NUM; i++) {
+        for(int i = 0; i < SENSORS_COUNT; i++) {
         	int k = i + 1;
         	String idName = "textView" + k;
         	textViews[i] = (TextView) findViewById(resources.getIdentifier(idName, "id", getPackageName()));
@@ -122,7 +122,7 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
         
         dateTimeTextView.setText("Current Weather in Knossos:\n" + date.get(0));
         
-        for(int i = 0; i < GRAPH_NUM; i++) {
+        for(int i = 0; i < SENSORS_COUNT; i++) {
         	textViews[i].append(sensorValue.get(i));
         }
 

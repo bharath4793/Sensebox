@@ -32,7 +32,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 	GraphViewSeries graphSeries;
 	JSON_resolver resolver = null;
 	ArrayList<Date> date;
-	ArrayList<String> temperature;
+	ArrayList<String> sensorData;
 
 	LinearLayout layout;
 	String title;
@@ -60,8 +60,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 		super.onPostExecute(result);
 	}
 
-	public void makeGraphs(LinearLayout layout, JSONObject jObject,
-			JSON_resolver resolver) {
+	public void makeGraphs(LinearLayout layout, JSONObject jObject, JSON_resolver resolver) {
 		resolver.setjObject(jObject);
 		try {
 			resolver.resolve();
@@ -70,7 +69,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 		}
 		if (resolver != null) {
 			date = resolver.getDate();
-			temperature = resolver.getTemp();
+			sensorData = resolver.getData();
 		}
 	}
 
@@ -85,6 +84,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 					System.out.println("ASDF " + date.get(i).toString());
 					break;
 				} else {
+					//Debugging wrong order at date
 					System.out.println("ERROR AT TIME ORDERING DETECTED --> "
 							+ date.get(i).toString() + ", last date"
 							+ lastDate.toString());
@@ -92,7 +92,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 				}
 
 			}
-			data[i] = new GraphView.GraphViewData(now, Double.parseDouble(temperature.get(i)));
+			data[i] = new GraphView.GraphViewData(now, Double.parseDouble(sensorData.get(i)));
 			last_now = now;
 		}
 

@@ -25,56 +25,43 @@ import com.graduational.sensebox.splashScreen.SplashScreen;
 public class MainActivity extends Activity implements DefinedValues {
 	private ActionBarDrawerToggle drawerToggle;
     private CharSequence mTitle;
-    private JSONObject[] jsonArray = new JSONObject[GRAPH_NUM];
+    private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
     private LinearLayout[] layouts;
-    private GraphDrawer graphDrawer;
     public Activity act = this;
     
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
         Intent intent = getIntent();
-       // PrefetchData pd = (PrefetchData) intent.getParcelableExtra("jsonStrings");
-      //  System.out.println(pd.getJsonStrings()[1]);
         String[] tempArray = intent.getStringArrayExtra("jsonStrings");
-		//System.out.println("[DEBUG_6.1] " + tempArray[0]);
-        jsonArray = new JSONObject[GRAPH_NUM];
+        jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < tempArray.length; i++) {
         	try {
 				JSONObject obj = new JSONObject(tempArray[i]);
 				jsonArray[i] = obj;
-				System.out.println("[DEBUG_5] ");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
         }
         layouts = graphLayouts();
-        for(int i = 0; i < GRAPH_NUM; i++) {
+        for(int i = 0; i < SENSORS_COUNT; i++) {
         	try {
         		new GraphDrawer(layouts[i], graphLabels[i], this, jsonArray[i], new JSON_resolver()).execute();
-				
 			} catch (JSONException | ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-
         NavDrawer navigationDrawer = new NavDrawer(this);
         drawerToggle = navigationDrawer.getDrawerToggle();
-
-   
     }
-
-    
+   
     private LinearLayout[] graphLayouts() {
-    	LinearLayout[] graphSpots = new LinearLayout[GRAPH_NUM];
+    	LinearLayout[] graphSpots = new LinearLayout[SENSORS_COUNT];
     	Resources resources = getResources();
-    	for (int i = 0; i < GRAPH_NUM; i++) {
+    	for (int i = 0; i < SENSORS_COUNT; i++) {
     		String idName = "graph" + i;
     		graphSpots[i] = (LinearLayout) findViewById(resources.getIdentifier(idName, "id", getPackageName()));
-    		//System.out.println("[DEBUG_2] " + graphSpots[i].getId());
     	}
     	return graphSpots;
     }
@@ -91,14 +78,12 @@ public class MainActivity extends Activity implements DefinedValues {
      */
     @Override
     	protected void onPostCreate(Bundle savedInstanceState) {
-    		// TODO Auto-generated method stub
     		super.onPostCreate(savedInstanceState);
     		drawerToggle.syncState();
     	}
     
     @Override
     	public void onConfigurationChanged(Configuration newConfig) {
-    		// TODO Auto-generated method stub
     		super.onConfigurationChanged(newConfig);
     		drawerToggle.onConfigurationChanged(newConfig);
     	}
@@ -135,18 +120,7 @@ public class MainActivity extends Activity implements DefinedValues {
 		finish();
 		Intent intent = new Intent(this, SplashScreen.class);
 		startActivity(intent);
-		
-	}
-    
-
-
-//    public void getGraphActivity(View view) {
-//        Intent intent = new Intent(this, Graphs.class);
-//        startActivity(intent);
-//    }
-
-
-
-    }
+	}		
+}
 
 
