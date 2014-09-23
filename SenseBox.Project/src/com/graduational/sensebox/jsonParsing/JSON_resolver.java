@@ -27,8 +27,8 @@ public class JSON_resolver {
         for (int i = 0; i < rowsArray.length(); i++) {
             JSONObject rowsElements = rowsArray.getJSONObject(i);
             JSONArray valuesArray = rowsElements.getJSONArray("c");
-            JSONObject temperatureObject = valuesArray.getJSONObject(1); //Change this to get Date or Temp
-            data.add(temperatureObject.getString("Value"));
+            JSONObject dataObject = valuesArray.getJSONObject(1); //Change this to get Date or Temp
+            data.add(dataObject.getString("Value"));
 
             JSONObject dateObject = valuesArray.getJSONObject(0);
             String dateString = (String) dateObject.get("Date");
