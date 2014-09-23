@@ -21,11 +21,10 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
     private String[] selectedItemStringArray = new String[SENSORS_COUNT];
     private JsonToStringConverter converter = new JsonToStringConverter();
 	private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
-	private GraphDrawer graphDrawer;
     private LinearLayout[] layouts;
     private DatabaseConnector databaseConnector = new DatabaseConnector();
-    ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
-	String[] urlArray;
+    private ArrayList<JSONObject> selectedItemObjectArray = new ArrayList<>();
+	private String[] urlArray;
 	private Activity activity;
 	private ProgressDialog mProgressDialog;
 	
@@ -58,7 +57,6 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
         	try {
 				JSONObject obj = new JSONObject(selectedItemStringArray[i]);
 				jsonArray[i] = obj;
-				System.out.println("[DEBUG_5] ");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -69,8 +67,6 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 	@Override
 	protected void onPostExecute(Void result) {	
 		super.onPostExecute(result);
-
-       // graphDrawer = new GraphDrawer();
         layouts = graphLayouts();
         for(int i = 0; i < SENSORS_COUNT; i++) {
         	try {
@@ -83,9 +79,6 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
         }
 		 mProgressDialog.dismiss();
 	}
-	
-	
-
 
 	private LinearLayout[] graphLayouts() {
     	LinearLayout[] graphSpots = new LinearLayout[SENSORS_COUNT];
