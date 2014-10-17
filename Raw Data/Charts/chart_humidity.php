@@ -19,7 +19,7 @@ if (mysqli_connect_errno()) {
 $results = array(
     'cols' => array (
         array('label' => 'Date', 'type' => 'datetime'),
-        array('label' => 'Humidity', 'type' => 'number')
+        array('label' => 'Humidityy', 'type' => 'number')
     ),
     'rows' => array()
 );

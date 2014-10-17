@@ -1,13 +1,16 @@
-            #include <DHT.h>
+#include <DHT.h>
 #include "DHT.h"
 #include <SPI.h>
 #include <Ethernet.h>
 #include <Wire.h>
 #include <stdlib.h>
 #include <Servo.h>
-#include <avr/wdt.h> //Watchdog timer handling
+#include <avr/wdt.h>
+
 
 #define BMP085_ADDRESS 0x77  // I2C address of BMP085
+#define lm35_pin 13
+#define dht11_pin 9
 #define DHTPIN 9
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 #define ANEMOMETER_PIN 3
@@ -15,19 +18,21 @@
 #define RAIN_GAUGE_PIN 2
 #define ANEMOMETER_INT 1
 #define VANE_PWR 4
-#define RAIN_GAUGE_INT 5
+#define RAIN_GAUGE_INT 0
 #define uint  unsigned int
 #define ulong unsigned long
-#define INNER_SERVO_PIN 40
-#define BASE_SERVO_PIN 41
-#define ETHERNET_SHIELD_RESET_PIN 36
+#define SERVO_1_INT 2
+#define SERVO_2_INT 3
+#define SERVO_1_PIN 40
+#define SERVO_2_PIN 41
+#define RESET_ARDUINO_PIN 36
 
 DHT dht(DHTPIN, DHTTYPE);
 //Servo involved variables
 int base_servo_position = 80;    // variable to store the servo position
 int inner_servo_position = 80;
-Servo inner_servo;  // create servo object to control a servo 
-Servo base_servo;
+Servo myservo;  // create servo object to control a servo 
+Servo myservo2;
 
 // this must be unique
 byte mac[] = {
@@ -71,6 +76,7 @@ unsigned long thisGustMillis = 0;
 unsigned long lastGustMillis = 0;
 
 
+int value0 = 0;
 float dht_temp = 0;
 float dht_humidity = 0;
 float dht_temp_Fh = 0;
@@ -88,14 +94,10 @@ double knots;
 double rain;
 double max_gust = 0;
 
-// Use these for altitude conversions
-const float p0 = 101325;     // Pressure at sea level (Pa)
-const float p1 = 1013.25;     // Pressure at sea level (hPa)
-
 void setup() {
-  digitalWrite(ETHERNET_SHIELD_RESET_PIN, HIGH); // Set it to HIGH immediately on boot
-  pinMode(ETHERNET_SHIELD_RESET_PIN, OUTPUT);    // We declare it an output ONLY AFTER it's HIGH
-  digitalWrite(ETHERNET_SHIELD_RESET_PIN, HIGH); // Default to HIGH, set to LOW to HARD RESET
+  digitalWrite(RESET_ARDUINO_PIN, HIGH); // Set it to HIGH immediately on boot
+  pinMode(RESET_ARDUINO_PIN, OUTPUT);    // We declare it an output ONLY AFTER it's HIGH
+  digitalWrite(RESET_ARDUINO_PIN, HIGH); // Default to HIGH, set to LOW to HARD RESET
   Serial.begin(9600);
   // disable SD SPI
   pinMode(4, OUTPUT);
@@ -114,9 +116,9 @@ void setup() {
   Wire.begin();
   bmp085Calibration();
   //-------------Weather Meters setup
-  pinMode(ANEMOMETER_PIN, INPUT_PULLUP);
+  pinMode(ANEMOMETER_PIN, INPUT);
   digitalWrite(ANEMOMETER_PIN, HIGH); // Turn on the internal Pull Up Resistor
-  pinMode(RAIN_GAUGE_PIN, INPUT_PULLUP);
+  pinMode(RAIN_GAUGE_PIN, INPUT);
   digitalWrite(RAIN_GAUGE_PIN, HIGH); // Turn on the internal Pull Up Resistor
   pinMode(VANE_PWR, OUTPUT);
   digitalWrite(VANE_PWR, LOW);
@@ -124,21 +126,29 @@ void setup() {
   //Most Arduino boards have two external interrupts: numbers 0 (on digital pin 2) and 1 (on digital pin 3).
   attachInterrupt(RAIN_GAUGE_INT, rainGageClick, FALLING);
   attachInterrupt(ANEMOMETER_INT, anemometerClick, FALLING);
+  //attachInterrupt(SERVO_1_INT,analogYchange,CHANGE);
+ // attachInterrupt(SERVO_2_INT,analogXchange,CHANGE);
   interrupts();
   
 //  nunchuk.init();
+  myservo.attach(SERVO_1_PIN);  // attaches the servo on pin 2 to the servo object 
+  myservo2.attach(SERVO_2_PIN);  
   //Checking free ram
   Serial.print("Free ram is: ");
   Serial.println(freeRam());
   srv.begin();
-  inner_servo.write(inner_servo_position);
+  myservo.write(inner_servo_position);
   dht.begin();
   
-  //watchdog timer setup function
   watchdogSetup();
-  //One second delay to let things settle down
+  //One second delay to let thing settle down
   delay(1000);
 }
+
+// Use these for altitude conversions
+const float p0 = 101325;     // Pressure at sea level (Pa)
+const float p1 = 1013.25;     // Pressure at sea level (hPa)
+
 
 void loop() {
   wdt_reset();
@@ -146,6 +156,14 @@ void loop() {
   gust = getGust();
   if (gust > max_gust) {
     max_gust = gust;
+    Serial.print("MAX GUST IS ---> ");
+    Serial.print(max_gust);
+    Serial.println();
+  }
+  if (gust > 0.01) {
+    Serial.print("GUST 2 VALUE is ---->  ");
+    Serial.print(gust);
+    Serial.println();
   }
   thisMillis = millis();
   thisGustMillis = millis();
@@ -176,6 +194,8 @@ void loop() {
     Serial.println(lastMillis);
     
     //Getting sensor values
+    value0 = analogRead(lm35_pin);
+    value0 = (5.0 * value0 * 100.0) / 1024.0;
     humidity();
     temperature = (bmp085GetTemperature(bmp085ReadUT())) * 0.1;
     pressure = (bmp085GetPressure(bmp085ReadUP())) * 0.01;
@@ -286,8 +306,9 @@ WDTCSR = (1<<WDIE) | (1<<WDE) | (0<<WDP3) | (1<<WDP2) | (1<<WDP1) | (1<<WDP0);
 sei();
 }
 
-ISR(WDT_vect){// Watchdog timer interrupt.
-  digitalWrite(ETHERNET_SHIELD_RESET_PIN, LOW); 
+ISR(WDT_vect){// Watchdog timer interrupt.{
+  Serial.println("INSIDE ISR");
+  digitalWrite(RESET_ARDUINO_PIN, LOW); 
 }
 
 //Humidity handler function
@@ -570,6 +591,7 @@ double getWindVane() {
   for (int n = 0; n < 16; n++) {
     int diff = reading - pgm_read_word(&vaneValues[n]);
     diff = abs(diff);
+    //Serial.println(diff);
     if (diff == 0)
       return pgm_read_word(&vaneDirections[n]) / 10.0;
 
@@ -624,6 +646,11 @@ void anemometerClick() {
   if (thisTime > 1000) {
     anem_count++;
     gust_anem_count++;
+    Serial.print("Anemometer Click ---> ");
+    Serial.print(anem_count);
+    Serial.print(" --- ");
+    Serial.print(thisTime);
+    Serial.println();
     if (thisTime < anem_min) {
       anem_min = thisTime;
     }
@@ -649,6 +676,11 @@ void rainGageClick() {
   rain_last = micros();
   if (thisTime > 2000) {
     rain_count++;
+    Serial.print("Rain Click ---> ");
+    Serial.print(rain_count);
+    Serial.print(" --- ");
+    Serial.print(thisTime);
+    Serial.println();
   }
 }
 
@@ -687,15 +719,13 @@ void servoControl() {
   if (client) {
     while (client.connected()) {   
       if (client.available()) {
-        //
-        inner_servo.attach(INNER_SERVO_PIN);  // attaches the servo on pin 2 to the servo object 
-        base_servo.attach(BASE_SERVO_PIN);  
         char c = client.read();
      
         //read char by char HTTP request
         if (readString.length() < 100) {
           //store characters to string
           readString += c;
+          //Serial.print(c);
          }
 
          //if HTTP request has ended
@@ -731,18 +761,17 @@ void servoControl() {
            delay(1);
            //stopping client
            client.stop();
-           
            //controls the Arduino if you press the buttons
-           
+
            //Base Servo
            if (readString.indexOf("?button1on") >0) {
-               if (base_servo_position >= 1 && base_servo_position <= 170) {
+               if (inner_servo_position >= 1 && inner_servo_position <= 170) {
                     if (base_servo_position > 160) {
                       base_servo_position -= 10;
                     }
                     base_servo_position += 10;       
                     Serial.println(base_servo_position);           
-                    base_servo.write(base_servo_position);              // tell servo to go to position in variable 'pos' 
+                    myservo2.write(base_servo_position);              // tell servo to go to position in variable 'pos' 
                     delay(15);                       // waits 15ms for the servo to reach the position 
                }
            }
@@ -752,7 +781,7 @@ void servoControl() {
                       base_servo_position -= 10;
                     }
                     Serial.println(base_servo_position);             
-                    base_servo.write(base_servo_position);              // tell servo to go to position in variable 'pos' 
+                    myservo2.write(base_servo_position);              // tell servo to go to position in variable 'pos' 
                     delay(15);                       // waits 15ms for the servo to reach the position 
                   }
            }
@@ -764,7 +793,7 @@ void servoControl() {
                     }
                     inner_servo_position += 10;       
                     Serial.println(inner_servo_position);           
-                    inner_servo.write(inner_servo_position);              // tell servo to go to position in variable 'pos' 
+                    myservo.write(inner_servo_position);              // tell servo to go to position in variable 'pos' 
                     delay(15);                       // waits 15ms for the servo to reach the position 
                }
            }
@@ -774,7 +803,7 @@ void servoControl() {
                       inner_servo_position -= 10;
                     }
                     Serial.println(inner_servo_position);             
-                    inner_servo.write(inner_servo_position);              // tell servo to go to position in variable 'pos' 
+                    myservo.write(inner_servo_position);              // tell servo to go to position in variable 'pos' 
                     delay(15);                       // waits 15ms for the servo to reach the position 
                   }
            }
@@ -784,9 +813,7 @@ void servoControl() {
              inner_servo_position = 170;
            } else if (inner_servo_position < 0) {
              inner_servo_position = 1;
-           }
-//           inner_servo.detach();  // attaches the servo on pin 2 to the servo object 
-//           base_servo.detach();   
+           } 
          }
        }
     }
