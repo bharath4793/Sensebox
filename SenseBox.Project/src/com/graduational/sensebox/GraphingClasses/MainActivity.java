@@ -14,9 +14,11 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.R;
+import com.graduational.sensebox.SpinnerActivity;
 import com.graduational.sensebox.jsonParsing.JSON_resolver;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
 import com.graduational.sensebox.splashScreen.SplashScreen;
@@ -28,13 +30,15 @@ public class MainActivity extends Activity implements DefinedValues {
     private JSONObject[] jsonArray = new JSONObject[SENSORS_COUNT];
     private LinearLayout[] layouts;
     public Activity act = this;
+    private SpinnerActivity spinner;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph_layout);
+        setContentView(R.layout.graph_activity);
         Intent intent = getIntent();
         String[] tempArray = intent.getStringArrayExtra("jsonStrings");
+        spinner = new SpinnerActivity(this);
         jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < tempArray.length; i++) {
         	try {

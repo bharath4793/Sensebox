@@ -26,6 +26,7 @@ import com.graduational.sensebox.BuildString;
 import com.graduational.sensebox.Builder;
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.R;
+import com.graduational.sensebox.SpinnerActivity;
 import com.graduational.sensebox.R.id;
 import com.graduational.sensebox.R.layout;
 import com.graduational.sensebox.R.menu;
@@ -54,6 +55,7 @@ public class ResultsActivity extends Activity implements DefinedValues {
         urlArray = intent.getStringArrayExtra("urls");
 		position = intent.getIntExtra("position", position);
         setTitle(intent.getStringExtra("title"));
+        new SpinnerActivity(this);
         navigationDrawer = new NavDrawer(this);
         clickListener = navigationDrawer.getClickListener();
         drawerToggle = navigationDrawer.getDrawerToggle();
@@ -65,7 +67,7 @@ public class ResultsActivity extends Activity implements DefinedValues {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
-    	inflater.inflate(R.menu.results_activity_menu, menu);
+    	inflater.inflate(R.menu.main, menu);
         return true;
     }
     
@@ -76,43 +78,20 @@ public class ResultsActivity extends Activity implements DefinedValues {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+		Builder builder = new BuildString();
         Intent intent;
 		switch (item.getItemId()) {
 			case R.id.refresh:
 				finish();
-				urlArray = clickListener.makeURL(last24hours, sensorsArray, null);
+				builder.startStringBuilding(last24hours, sensorsArray, null);
+				urlArray = builder.getUrlArray();
 				intent = new Intent(this, ResultsActivity.class);
 				intent.putExtra("urls", urlArray);
 				intent.putExtra("title", "24 Hours Report");
 				startActivity(intent);
 	            return true;
-			case R.id.lastTwoDays:
-				finish();
-				urlArray = clickListener.makeURL(last48hours, sensorsArray, null);
-				intent = new Intent(this, ResultsActivity.class);
-				intent.putExtra("urls", urlArray);
-				intent.putExtra("title", "48 Hours Report");
-				startActivity(intent);
-	            return true;
-			case R.id.lastWeek:
-				finish();
-				urlArray = clickListener.makeURL(lastWeek, sensorsArray, null);
-				intent = new Intent(this, ResultsActivity.class);
-				intent.putExtra("urls", urlArray);
-				intent.putExtra("title", "Weekly Report");
-				startActivity(intent);
-	            return true;
-			case R.id.lastMonth:
-				finish();
-				urlArray = clickListener.makeURL(lastMonth, sensorsArray, null);
-				intent = new Intent(this, ResultsActivity.class);
-				intent.putExtra("urls", urlArray);
-				intent.putExtra("title", "Monthly Hours Report");
-				startActivity(intent);
-	            return true;
-			default:
-				return super.onOptionsItemSelected(item);
 		}
+		return true;
 	}
 
 

@@ -1,31 +1,17 @@
 package com.graduational.sensebox.minMaxReportClasses;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.CountDownLatch;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.R;
-import com.graduational.sensebox.R.id;
-import com.graduational.sensebox.R.layout;
-import com.graduational.sensebox.R.menu;
-import com.graduational.sensebox.databaseClasses.DatabaseConnector;
-import com.graduational.sensebox.graphingClasses.GraphActivity;
+import com.graduational.sensebox.SpinnerActivity;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
 
 public class ReportsAtivity extends Activity implements DefinedValues{
@@ -42,6 +28,7 @@ public class ReportsAtivity extends Activity implements DefinedValues{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.min_max_activity);
 	    
+		new SpinnerActivity(this);
 		navigationDrawer = new NavDrawer(this);
 	    drawerToggle = navigationDrawer.getDrawerToggle();
 	    
@@ -50,10 +37,8 @@ public class ReportsAtivity extends Activity implements DefinedValues{
 		minUrlArray = intent.getStringArrayExtra("minUrlArray");
 		maxUrlArray = intent.getStringArrayExtra("maxUrlArray");
 		position = intent.getIntExtra("position", position);
-		System.out.println("min url array " + minUrlArray[0]);
-		System.out.println("maxn url array " + maxUrlArray[0]);
-		
-	    
+        setTitle(intent.getStringExtra("title"));
+		    
 	    new ReportsActivitiesHandler(minUrlArray, maxUrlArray, this).execute();
 	}
 	
@@ -111,7 +96,7 @@ public class ReportsAtivity extends Activity implements DefinedValues{
     
 	private void restartApp() {
 		ListView lv = navigationDrawer.getDrawerList();
-		lv.performItemClick(lv.getAdapter().getView(position, null, null), position, lv.getAdapter().getItemId(position));		
+		lv.performItemClick(lv.getAdapter().getView(default_results_report_flag, null, null), default_results_report_flag, lv.getAdapter().getItemId(default_results_report_flag));		
 	}
 	}
 

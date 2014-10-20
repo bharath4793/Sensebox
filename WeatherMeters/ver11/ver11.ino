@@ -280,7 +280,7 @@ WDP1 = 1 :For 2000ms Time-out
 WDP0 = 1 :For 2000ms Time-out
 */
 // Enter Watchdog Configuration mode:
-WDTCSR |= (1<<WDCE) | (1<<WDE);
+WDTCSR |= (1<<WDCE) | (1<<WDE); //x |= y is the same as  x = x | y
 // Set Watchdog settings:
 WDTCSR = (1<<WDIE) | (1<<WDE) | (0<<WDP3) | (1<<WDP2) | (1<<WDP1) | (1<<WDP0);
 sei();

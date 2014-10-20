@@ -18,6 +18,11 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+        <Spinner
+	    android:id="@+id/spinner"
+	    android:prompt="@+id/spinner_header"
+	    android:layout_width="fill_parent"
+	    android:layout_height="50dip" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -69,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#111"
+        android:background="@android:color/background_light">
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" >

@@ -29,18 +29,7 @@ public class NavDrawer implements DefinedValues{
 	        drawerList = (ListView) activity.findViewById(R.id.left_drawer);
 	        clickListener = new DrawerItemClickListener(activity);
 	        
-//	        TextView textView = new TextView(activity);
-//	        textView.setClickable(true);
-//	        textView.setFocusable(true);
-//	        textView.getLayoutParams();
-//			//textView.setWidth(android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
-//	        textView.setTextColor(Color.RED);
-//	        textView.setTextSize(25);
-//	        textView.setGravity(Gravity.CENTER);
-//	        textView.setText("Graphs");
-//	        textView.requestLayout();
-//	       // drawerList.addHeaderView(textView);
-	        drawerList.setAdapter(new ArrayAdapter<>(activity,  R.layout.drawer_list_item, dummyArray));
+	        drawerList.setAdapter(new ArrayAdapter<>(activity,  R.layout.drawer_list_item, nav_drawer_array));
 	        drawerList.setOnItemClickListener(clickListener);
 
 

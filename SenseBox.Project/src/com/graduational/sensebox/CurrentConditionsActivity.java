@@ -183,6 +183,6 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
 
 	private void restartApp() {
 		ListView lv = navigationDrawer.getDrawerList();
-		lv.performItemClick(lv.getAdapter().getView(position, null, null), position, lv.getAdapter().getItemId(position));		
+		lv.performItemClick(lv.getAdapter().getView(default_CWR_flag, null, null), default_CWR_flag, lv.getAdapter().getItemId(default_CWR_flag));		
 	}
 }

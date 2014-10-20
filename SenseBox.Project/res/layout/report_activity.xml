@@ -14,7 +14,7 @@
     android:id="@+id/scrollView"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@color/black" >
+    android:background="@color/white" >
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" 
         android:textSize="25sp"
         android:gravity="center|top"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_marginTop="36dp"
         android:text="Pressure: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView4"
@@ -55,7 +55,7 @@
         android:layout_marginTop="36dp"
         android:text="Gust: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView5"
@@ -66,7 +66,7 @@
         android:layout_marginTop="36dp"
         android:text="Direction: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView6"
@@ -77,7 +77,7 @@
         android:layout_marginTop="36dp"
         android:text="Rain: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView7"
@@ -88,7 +88,7 @@
         android:layout_marginTop="36dp"
         android:text="Speed: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView1"
@@ -99,7 +99,7 @@
         android:layout_marginTop="20dp"
         android:text="Humidity: "
         android:textAppearance="?android:attr/textAppearanceMedium" 
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -110,7 +110,7 @@
         android:layout_marginTop="36dp"
         android:text="Temperature: "
         android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
 </RelativeLayout>
 
@@ -126,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#111"
+        android:background="@android:color/background_light">
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" >

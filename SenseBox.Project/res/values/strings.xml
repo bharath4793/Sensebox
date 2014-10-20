@@ -18,5 +18,7 @@
     <string name="last_three_months_graph_activity_name">Three Last Months Graphs </string>
     <string name="daily_report_activity_name">Daily Min Max Report </string>
     <string name="results_activity_name">24 Hours Report</string>
+    <string name="spinner">My Spinner</string>
+    <string name="spinner_header">My Spinner</string>
     
 </resources>

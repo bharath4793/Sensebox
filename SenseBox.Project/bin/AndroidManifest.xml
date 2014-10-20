@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/default_action_bar_text"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.graduational.sensebox.graphingClasses.MainActivity"
             android:label="@string/default_action_bar_text" 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="choices">
+        <item></item>
+        <item>Daily</item>
+        <item>2 Days</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Quarter</item>
+    </string-array>
+</resources>

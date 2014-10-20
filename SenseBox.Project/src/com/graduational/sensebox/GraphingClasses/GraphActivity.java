@@ -6,12 +6,14 @@ import java.util.concurrent.CountDownLatch;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
 
 import com.graduational.sensebox.DefinedValues;
 import com.graduational.sensebox.R;
 import com.graduational.sensebox.R.id;
 import com.graduational.sensebox.R.layout;
 import com.graduational.sensebox.R.menu;
+import com.graduational.sensebox.SpinnerActivity;
 import com.graduational.sensebox.navigationDrawer.NavDrawer;
 import com.graduational.sensebox.splashScreen.SplashScreen;
 
@@ -25,6 +27,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.AttributeSet;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +36,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class GraphActivity extends Activity implements DefinedValues{
 
@@ -51,7 +56,7 @@ public class GraphActivity extends Activity implements DefinedValues{
         urlArray = intent.getStringArrayExtra("urls");
 		position = intent.getIntExtra("position", position);
         setTitle(intent.getStringExtra("title"));
-		//System.out.println("[DEBUG_6.1] " + urlArray[0]);
+        new SpinnerActivity(this);
         navigationDrawer = new NavDrawer(this);
         drawerToggle = navigationDrawer.getDrawerToggle();
         new GraphActivitiesHandler(urlArray, this).execute();
@@ -114,7 +119,7 @@ public class GraphActivity extends Activity implements DefinedValues{
 
 		private void restartApp() {
 			ListView lv = navigationDrawer.getDrawerList();
-			lv.performItemClick(lv.getAdapter().getView(position, null, null), position, lv.getAdapter().getItemId(position));		
+			lv.performItemClick(lv.getAdapter().getView(default_graphs_flag, null, null), default_graphs_flag, lv.getAdapter().getItemId(default_graphs_flag));		
 		}
     
 

@@ -1,9 +1,29 @@
 package com.graduational.sensebox;
 
 
-public class BuildString extends Builder {
-	StringBuffer query = new StringBuffer("http://sensebox.noip.me/dynamicQueryExecutor.php?");
+public class BuildString extends Builder implements DefinedValues {
+	StringBuffer query;
+	private String[] urlArray;
 	
+	
+	
+	public String[] getUrlArray() {
+		return urlArray;
+	}
+	
+	public void startStringBuilding(int elementClicked, String[] sensorsArray, String separator) {
+		urlArray = new String[SENSORS_COUNT];
+		for (int i = 0; i < sensorsArray.length; i++) {
+			query = new StringBuffer("http://sensebox.noip.me/dynamicQueryExecutor.php?");
+
+			urlArray[i] = buildString(elementClicked, sensorsArray[i], separator);
+			System.out.println("Item clicked = " + elementClicked + ", " + sensorsArray[i] +
+					", " + urlArray[i]);
+		}
+	}
+
+
+
 	@Override
 	public
 	String buildString(int elementClicked, String sensor, String separator) {

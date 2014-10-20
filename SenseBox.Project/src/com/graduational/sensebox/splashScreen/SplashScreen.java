@@ -26,34 +26,17 @@ import com.graduational.sensebox.databaseClasses.DatabaseConnector;
 public class SplashScreen extends Activity implements DefinedValues {
 	private String[] defaultURLArray;
 	public ArrayList<JSONObject> jsonArray = new ArrayList<>();
-    private String[] sensorsArray = 
-    	{"Humidity", "BMP_temp", "BMP_pressure", "Gust", "Direction", "Rain", "Speed"};
     DatabaseConnector databaseConnector;
+    private Builder builder = new BuildString();
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-        defaultURLArray = makeURL(DEFAULT_FLAG, sensorsArray);
-        //System.out.println("DEFAULT URL ARRAY 4 "  + defaultURLArray[3]);
+		builder.startStringBuilding(DEFAULT_FLAG, sensorsArray, "null");
+		defaultURLArray = builder.getUrlArray();
 		
         new PrefetchData(defaultURLArray, this).execute();
 	}
-    
-    private String[] makeURL(int elementClicked, String[] sensorsArray) {
-    	String[] urlArray = new String[SENSORS_COUNT];
-    	for(int i = 0; i < sensorsArray.length; i++) {
-        	Builder builder = new BuildString();
-    		urlArray[i] = builder.buildString(elementClicked, sensorsArray[i], null);
-    	}
-    	//urlArray holds all the urls for all the sensors.
-    	return urlArray;
-    }
-
-
-
-
-
 }
