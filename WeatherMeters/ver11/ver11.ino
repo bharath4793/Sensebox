@@ -1,4 +1,4 @@
-            #include <DHT.h>
+#include <DHT.h>
 #include "DHT.h"
 #include <SPI.h>
 #include <Ethernet.h>
@@ -610,11 +610,11 @@ unsigned long lastMillis_2 = 0;
 //}
 
 double getGust() {
-  unsigned long reading=anem_min;
+  unsigned long reading=anem_min; //Time since last interrupt
   anem_min=0xffffffff;
   double time=reading/1000000.0;
  
-  return ((1/(reading/1000000.0))*WIND_FACTOR) * 0.868976;
+  return ((1/(time))*WIND_FACTOR) * 0.868976;
 }
 
 void anemometerClick() {
@@ -625,7 +625,7 @@ void anemometerClick() {
     anem_count++;
     gust_anem_count++;
     if (thisTime < anem_min) {
-      anem_min = thisTime;
+      anem_min = thisTime; //Time since last interrupt
     }
   }
 }
