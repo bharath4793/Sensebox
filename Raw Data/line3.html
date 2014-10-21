@@ -1,15 +1,13 @@
 <html>
   <head>
-	 <!-- <meta http-equiv="refresh" content="120" > -->
+    <!-- <meta http-equiv="refresh" content="120" > -->
     <!--Load the AJAX API-->
-	
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
 
-    
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1', {'packages':['corechart']});
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1', {'packages':['corechart']});
 	var sensorsArray = ["Humidity", "BMP_temp", "BMP_pressure", "Gust", "Direction", "Rain", "Speed"];
 	var titles = ["Humidity", "Temperature", "Pressure", "Gust", "Direction", "Rain", "Speed"];
 	var query = 'http://192.168.1.5/dynamicQueryExecutor[web].php?';
@@ -21,11 +19,10 @@
 		}
 	}
 	
-	
-    // Set a callback to run when the Google Visualization API is loaded.
+    	// Set a callback to run when the Google Visualization API is loaded.
 	//The following are the steps to make it work:
-		//Place google.load and google.setOnLoadCallback in a separate script tag.
-		//Use a function expression.
+	//Place google.load and google.setOnLoadCallback in a separate script tag.
+	//Use a function expression.
     google.setOnLoadCallback(callDrawer);
 	
 	function callDrawer() {
@@ -34,13 +31,6 @@
 			drawGraph(urlArray[i], titles[i]);
 		}
 	}
-	function log(msg) {
-		setTimeout(function() {
-        throw new Error(msg);
-		}, 0);
-	}	
-
-      
 
 function drawGraph(path, title) {
 
@@ -68,12 +58,9 @@ var url = path;
         }
     });
 }
-
     </script>
 	
   </head>
-  
-  
 	<body>
 		<div id="Humidity"></div>
 		<p></p>
@@ -89,8 +76,6 @@ var url = path;
 		<p></p>
 		<div id="Speed"></div>
 		<p></p>
-		
 		<div>
-		
 	</body>
 </html>
