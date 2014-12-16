@@ -29,6 +29,7 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 	Intent intent;
 	Builder builder = new BuildString();
 	List<String> list = new ArrayList<String>();
+	private int highsLowsDifference = 6;
 	
 	public SpinnerActivity(final Activity activity) {
 		this.activity = activity;
@@ -87,9 +88,9 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 				break;
 			} else if (activity instanceof ReportsAtivity) {
 				activity.finish();
-				builder.startStringBuilding(position, sensorsArray, "ASC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "ASC");
 				minUrlArray = builder.getUrlArray();
-				builder.startStringBuilding(position, sensorsArray, "DESC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "DESC");
 				maxUrlArray = builder.getUrlArray();
 				intent = new Intent(activity, ReportsAtivity.class);
 				intent.putExtra("minUrlArray", minUrlArray);
@@ -122,9 +123,9 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 				break;
 			} else if (activity instanceof ReportsAtivity) {
 				activity.finish();
-				builder.startStringBuilding(position, sensorsArray, "ASC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "ASC");
 				minUrlArray = builder.getUrlArray();
-				builder.startStringBuilding(position, sensorsArray, "DESC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "DESC");
 				maxUrlArray = builder.getUrlArray();
 				intent = new Intent(activity, ReportsAtivity.class);
 				intent.putExtra("minUrlArray", minUrlArray);
@@ -156,9 +157,9 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 				break;
 			} else if (activity instanceof ReportsAtivity) {
 				activity.finish();
-				builder.startStringBuilding(position, sensorsArray, "ASC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "ASC");
 				minUrlArray = builder.getUrlArray();
-				builder.startStringBuilding(position, sensorsArray, "DESC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "DESC");
 				maxUrlArray = builder.getUrlArray();
 				intent = new Intent(activity, ReportsAtivity.class);
 				intent.putExtra("minUrlArray", minUrlArray);
@@ -190,9 +191,9 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 				break;
 			} else if (activity instanceof ReportsAtivity) {
 				activity.finish();
-				builder.startStringBuilding(position, sensorsArray, "ASC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "ASC");
 				minUrlArray = builder.getUrlArray();
-				builder.startStringBuilding(position, sensorsArray, "DESC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "DESC");
 				maxUrlArray = builder.getUrlArray();
 				intent = new Intent(activity, ReportsAtivity.class);
 				intent.putExtra("minUrlArray", minUrlArray);
@@ -224,9 +225,9 @@ public class SpinnerActivity implements OnItemSelectedListener, DefinedValues {
 				break;
 			} else if (activity instanceof ReportsAtivity) {
 				activity.finish();
-				builder.startStringBuilding(position, sensorsArray, "ASC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "ASC");
 				minUrlArray = builder.getUrlArray();
-				builder.startStringBuilding(position, sensorsArray, "DESC");
+				builder.startStringBuilding(position + highsLowsDifference, sensorsArray, "DESC");
 				maxUrlArray = builder.getUrlArray();
 				intent = new Intent(activity, ReportsAtivity.class);
 				intent.putExtra("minUrlArray", minUrlArray);

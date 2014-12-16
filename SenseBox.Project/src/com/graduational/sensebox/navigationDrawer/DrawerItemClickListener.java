@@ -26,14 +26,11 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		System.out.println("--> " + id + ", " + position);
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		selectItem(position, activity);
 	}
 
 	private void selectItem(final int position, final Activity activity) {
-		System.out.println("--> " + position + ", " + activity.getTitle());
 		new Thread(new Runnable() {
 			String[] urlArray;
 			String[] minUrlArray;
@@ -46,7 +43,6 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 				case 0:
 					builder.startStringBuilding(default_graphs_flag, sensorsArray, null);
 					urlArray = builder.getUrlArray();
-					System.out.println("CLICKED--> " + default_graphs_flag);
 					intent = new Intent(activity, GraphActivity.class);
 					intent.putExtra("urls", urlArray);
 					intent.putExtra("title", "24 Hours Graphs");
@@ -57,7 +53,6 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 					builder.startStringBuilding(default_CWR_flag, sensorsArray, null);
 					urlArray = builder.getUrlArray();
 					intent = new Intent(activity, CurrentConditionsActivity.class);
-					System.out.println("CLICKED--> " + position);
 					intent.putExtra("urls", urlArray);
 					intent.putExtra("position", default_CWR_flag);
 					activity.startActivity(intent);
@@ -67,7 +62,6 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 					minUrlArray = builder.getUrlArray();
 					builder.startStringBuilding(default_high_low_flag, sensorsArray, "DESC");
 					maxUrlArray = builder.getUrlArray();
-					System.out.println("CLICKED--> " + default_high_low_flag);
 					intent = new Intent(activity, ReportsAtivity.class);
 					intent.putExtra("minUrlArray", minUrlArray);
 					intent.putExtra("maxUrlArray", maxUrlArray);
@@ -90,7 +84,5 @@ public class DrawerItemClickListener implements ListView.OnItemClickListener,
 		}, "selectItemThread").start();
 
 	}
-
-
 
 }

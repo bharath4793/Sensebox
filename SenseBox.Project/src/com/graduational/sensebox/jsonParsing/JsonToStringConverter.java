@@ -11,7 +11,6 @@ public class JsonToStringConverter implements DefinedValues {
 	private String[] jsonStrings;
 
 	public JsonToStringConverter() {
-		// TODO Auto-generated constructor stub
 	}
 	
     public String[] converter(ArrayList<JSONObject> jsonArray) {

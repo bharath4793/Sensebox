@@ -39,8 +39,7 @@ public class GraphDrawer extends AsyncTask<Void, Void, Void> {
 	Activity activity;
 	JSONObject jObject;
 
-	public GraphDrawer(LinearLayout layout, String title, Activity activity,
-			JSONObject jObject, JSON_resolver resolver) {
+	public GraphDrawer(LinearLayout layout, String title, Activity activity, JSONObject jObject, JSON_resolver resolver) {
 		this.layout = layout;
 		this.title = title;
 		this.activity = activity;

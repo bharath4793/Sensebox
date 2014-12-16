@@ -1,0 +1,235 @@
+<html>
+  <head>
+	  <meta http-equiv="refresh" content="120" >
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+	
+    
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawVisualization);
+      
+  function drawTemperature() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_temperature.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Temperature',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+    }
+};
+			
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_temperature'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawHumidity() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_humidity.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Humidity',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_humidity'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawPressure() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_pressure.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Pressure',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_pressure'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawGust() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_gust.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Gust',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_gust'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawDirection() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_direction.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Direction',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_direction'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawWind() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_wind.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Wind Speed',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_wind'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+ function drawRain() {
+    $.ajax({
+        url: 'http://192.168.1.5/Charts/chart_rain.php',
+        dataType: 'json',
+        success: function (jsonData) {
+            // Create our data table out of JSON data loaded from server.
+            var data = new google.visualization.DataTable(jsonData);
+			
+			var range = data.getColumnRange(1);
+			var options = {
+				title: 'Rain',
+				width: 1200,
+				height: 600,
+				vAxis: {
+				minValue: range.min - 2,
+				maxValue: range.max + 4
+				}
+			};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(document.getElementById('chart_rain'));
+            chart.draw(data, options);
+        }
+    });
+}
+
+
+
+
+ function drawVisualization() {
+               drawTemperature();
+               drawHumidity();
+			   drawPressure();
+			   drawWind();
+			   drawDirection();
+			   drawGust();
+			   drawRain();
+
+            }
+
+    </script>
+	
+  </head>
+
+  <body>
+		<div id="chart_temperature"></div>
+		<p></p>
+		<div id="chart_humidity"></div>
+		<p></p>
+		<div id="chart_pressure"></div>
+		<p></p>
+		<div id="chart_wind"></div>
+		<p></p>
+		<div id="chart_direction"></div>
+		<p></p>
+		<div id="chart_gust"></div>
+		<p></p>
+		<div id="chart_rain"></div>
+		<p></p>
+                
+                <script>
+                    
+                </script>
+                
+                <?php 
+                   
+                ?>
+
+  </body>
+</html>

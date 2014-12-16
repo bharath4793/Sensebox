@@ -78,14 +78,12 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 	
 	@Override
 	protected void onPostExecute(Void result) {
-		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		virtualizeData(maxResolver, minResolver);
 		mProgressDialog.dismiss();
 	}
 	
 	private void virtualizeData(JSON_resolver maxResolver, JSON_resolver minResolver) {	
-		// textView.setText(data);
 		if (maxResolver != null && minResolver != null) {
 			maxDate = maxResolver.getDate();
 			maxSensorValue = maxResolver.getData();
@@ -102,11 +100,6 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 			textViews[i] = (TextView) activity.findViewById(resources
 					.getIdentifier(idName, "id", activity.getPackageName()));
 		}
-
-		// dateTimeTextView = (TextView) findViewById(R.id.textView8);
-
-		// dateTimeTextView.setText("Current Weather in Knossos:\n" +
-		// date.get(0));
 
 		for (int i = 0; i < SENSORS_COUNT; i++) {
 			textViews[i].append("\nMax: " + maxSensorValue.get(i) + "\n"
@@ -160,8 +153,5 @@ public class ReportsActivitiesHandler extends AsyncTask<Void, Void, Void>
 			maxItemObjectArray.add(databaseConnector.getData(maxUrlArray[i]));
 			maxItemStringArray = converter.converter(maxItemObjectArray);
 		}
-		System.out.println("min Item string array " + minItemStringArray[1]);
-		System.out.println("man Item string array " + maxItemStringArray[1]);
-
 	}
 }

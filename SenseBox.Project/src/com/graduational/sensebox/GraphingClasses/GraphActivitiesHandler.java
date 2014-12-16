@@ -30,8 +30,7 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
 	
 	public GraphActivitiesHandler(String[] urlArray, Activity activity) {
 		this.urlArray = urlArray;
-		this.activity = activity;
-		
+		this.activity = activity;	
 		mProgressDialog = new ProgressDialog(activity);
 	}
 	
@@ -50,8 +49,7 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
             selectedItemObjectArray.add(databaseConnector.getData(urlArray[i]));
             selectedItemStringArray = converter.converter(selectedItemObjectArray);
         }
-    	
-        
+    	 
         jsonArray = new JSONObject[SENSORS_COUNT];
         for(int i = 0; i < urlArray.length; i++) {
         	try {
@@ -73,7 +71,6 @@ public class GraphActivitiesHandler extends AsyncTask<Void, Void, Void> implemen
         		new GraphDrawer(layouts[i], graphLabels[i], activity, jsonArray[i], new JSON_resolver()).execute();
 				
 			} catch (JSONException | ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }

@@ -44,7 +44,6 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
     ArrayList<String> sensorValue;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_activity);
         
@@ -70,7 +69,6 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
 		try {
 			latch.await();
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -87,7 +85,6 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
         try {
 			resolver = new JSON_resolver();
 		} catch (JSONException | ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         for(int i = 0; i < SENSORS_COUNT; i++) {   		
@@ -101,8 +98,7 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
             }
         }
 
-        
-        //   textView.setText(data);
+      
         if (resolver != null) {
             date = resolver.getDate();
             sensorValue = resolver.getData();
@@ -117,17 +113,13 @@ public class CurrentConditionsActivity extends Activity implements DefinedValues
         	String idName = "textView" + k;
         	textViews[i] = (TextView) findViewById(resources.getIdentifier(idName, "id", getPackageName()));
         }
-        
-        dateTimeTextView = (TextView) findViewById(R.id.textView8);
-        
+        dateTimeTextView = (TextView) findViewById(R.id.textView8);      
         dateTimeTextView.setText("Current Weather in Knossos:\n" + date.get(0));
         
         for(int i = 0; i < SENSORS_COUNT; i++) {
         	textViews[i].append(sensorValue.get(i));
         }
-
 	}
-	
 	   
     @Override
     public void setTitle(CharSequence title) {

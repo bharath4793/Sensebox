@@ -33,12 +33,9 @@ public class GetDataFromDB {
 
     // function get json from url
     // by making HTTP POST or GET mehtod
-    public JSONObject makeHttpRequest(String url, String method,
-                                      List<NameValuePair> params) {
-
+    public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params) {
         // Making HTTP request
         try {
-
             // check for request method
             if(method == "POST"){
                 // request method is POST
@@ -81,7 +78,6 @@ public class GetDataFromDB {
             }
             is.close();
             json = sb.toString();
-           // System.out.println(json);
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
@@ -95,6 +91,5 @@ public class GetDataFromDB {
 
         // return JSON String
         return jObj;
-
     }
 }

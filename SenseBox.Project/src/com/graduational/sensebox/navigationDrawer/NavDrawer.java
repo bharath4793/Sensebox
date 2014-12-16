@@ -31,9 +31,7 @@ public class NavDrawer implements DefinedValues{
 	        
 	        drawerList.setAdapter(new ArrayAdapter<>(activity,  R.layout.drawer_list_item, nav_drawer_array));
 	        drawerList.setOnItemClickListener(clickListener);
-
-
-	        
+ 
 	        // set a custom shadow that overlays the main content when the drawer opens
 	        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 	        // ActionBarDrawerToggle ties together the the proper interactions

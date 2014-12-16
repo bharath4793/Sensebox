@@ -115,7 +115,6 @@ public class ResultsActivity extends Activity implements DefinedValues {
 	    
 	    @Override
 	    	public void onConfigurationChanged(Configuration newConfig) {
-	    		// TODO Auto-generated method stub
 	    		super.onConfigurationChanged(newConfig);
 	    		drawerToggle.onConfigurationChanged(newConfig);
 	    	}
